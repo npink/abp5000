@@ -1,0 +1,10 @@
+.hero-unit
+	%h1 ABP5000 Sign In
+	%br
+	= form_tag("/users/login", method: "post") do
+		%fieldset
+			= text_field_tag :initials, nil, placeholder: "Your Initials"
+			%br
+			= password_field_tag :password, nil, placeholder: "Password"
+			%br
+			%button{type: "submit", class:"btn"} Sign In
