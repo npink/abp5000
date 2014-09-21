@@ -1,10 +1,18 @@
-.hero-unit
-	%h1 ABP5000 Sign In
-	%br
-	= form_tag("/users/login", method: "post") do
-		%fieldset
-			= text_field_tag :initials, nil, placeholder: "Your Initials"
+!!! 5
+%html
+	%head
+		%title Abp5000
+		= stylesheet_link_tag    'application', media: 'all'
+		= javascript_include_tag 'application'
+		= csrf_meta_tags
+	%body
+		.hero-unit
+			%h1 ABP5000 Sign In
 			%br
-			= password_field_tag :password, nil, placeholder: "Password"
-			%br
-			%button{type: "submit", class:"btn"} Sign In
+			= form_tag("/users/login", method: "post") do
+				%fieldset
+					= text_field_tag :initials, nil, placeholder: "Your Initials"
+					%br
+					= password_field_tag :password, nil, placeholder: "Password"
+					%br
+					%button{type: "submit", class:"btn"} Sign In
