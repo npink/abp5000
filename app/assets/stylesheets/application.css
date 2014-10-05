@@ -14,3 +14,36 @@
  *= require_tree .
  *= require_self
  */
+
+#page_title {
+	font-family: "Optima", serif;
+	font-weight: bold;
+	font-size: 140%;
+	display: inline-block;
+	width: 160px;
+}
+
+#top_menu {
+	font-size: 120%;
+	padding: 10px;
+	text-transform: uppercase;
+	background: rgba(242,246,248,1);
+	background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(242,246,248,1)), color-stop(48%, rgba(216,225,231,1)), color-stop(78%, rgba(181,198,208,1)), color-stop(99%, rgba(149,173,187,1)), color-stop(100%, rgba(224,239,249,1)));
+	background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
+	background: -o-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
+	background: -ms-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
+	background: linear-gradient(to bottom, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
+}
+
+#top_menu > ul {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+#top_menu > ul > li {
+	display: inline-block;
+	width: 130px;
+}

@@ -1,18 +1,18 @@
 !!! 5
 %html
 	%head
-		%title Abp5000
+		%title Steve
 		= stylesheet_link_tag    'application', media: 'all'
 		= javascript_include_tag 'application'
 		= csrf_meta_tags
 	%body
-		- # Menu bar
-		#top_menu
-			#page_title ABP5000
-			.item Today's orders
-			.item Find Order
-			.item Add Order
-			.item Calendar
-			.item= link_to('Logout', {controller: 'users', action: 'logout'}, method: 'post')
+		%nav#top_menu
+			#page_title Steve
+			%ul
+				%li Today
+				%li Find
+				%li Add
+				%li Calendar
+				%li= link_to('Logout', {controller: 'users', action: 'logout'}, method: 'post')
 		#content
 			= yield
