@@ -6,8 +6,7 @@ class CreateTasks < ActiveRecord::Migration
          
          t.date      :due_date
          
-         t.integer   :duration
-         t.string    :equipment_required
+         t.string   :duration
          
          t.string    :delegated_to
          t.string    :completed_by

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         user = User.first
         if params[:initials] == user.initials and params[:password] == user.password
             session[:initials] = params[:initials]
-            redirect_to :controller => 'orders', :action => 'render_queue'
+            redirect_to :controller => 'tasks', :action => 'render_queue'
         else
             render 'login_form'
         end

@@ -2,11 +2,11 @@ class TasksController < ApplicationController
    before_filter :create_task_object
    
     def render_queue
-       @tasks = Task.all
+       @tasks = Task.queue
     end
     
     def create
-        Task.create params[:order]
+        Task.create params[:task]
        
        redirect_to(controller: 'tasks', action: 'render_queue')
     end

@@ -18,8 +18,8 @@
 $(function() {
 	//$("#test").hide();
 	//$("#add_button").hide();
-	$("#add_order_button").click( function() {
-		$('#add_order_form').modal('show');
+	$("#add_task_button").click( function() {
+		$('#add_task_form').modal('show');
 	});
 	
 });
