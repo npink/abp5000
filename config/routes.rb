@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     post 'users/login' => 'users#login'
     post 'users/logout' => 'users#logout'
     
-    get 'orders/list_by_date' => 'orders#list_by_date'
+    post 'tasks' => 'tasks#create'
+    get 'tasks/render_queue' => 'tasks#render_queue'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

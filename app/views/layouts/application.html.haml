@@ -1,18 +1,66 @@
 !!! 5
 %html
 	%head
-		%title Steve
+		%title neXt
 		= stylesheet_link_tag    'application', media: 'all'
 		= javascript_include_tag 'application'
 		= csrf_meta_tags
 	%body
 		%nav#top_menu
-			#page_title Steve
-			%ul
-				%li Today
-				%li Find
-				%li Add
-				%li Calendar
-				%li= link_to('Logout', {controller: 'users', action: 'logout'}, method: 'post')
+			#page_title neXt
+			.btn-group
+				%button.btn Today
+				%button#add_order_button.btn	Add
+				%button.btn Find
+				%button.btn Calendar
+				%button.btn= link_to('Logout', {controller: 'users', action: 'logout'}, method: 'post')
+
 		#content
 			= yield
+		
+		#add_order_form.modal.hide.fade
+			.modal-dialog
+				.modal-content
+					= form_for @order, url: {action: 'create'} do |f|
+						.modal-header
+							%h4.modal-title Add Order
+						
+						.modal-body
+							.form-group
+								= f.text_field :client_name, {placeholder: 'Client Name'}
+							.form-group
+								= f.text_field :summary, {placeholder: 'Summary'}
+							.form-group
+								= f.label :due_date
+								= f.date_field :due_date, value: Date.today.strftime("%Y-%m-%d")
+							.form_group
+								= f.label :minutes_to_complete, "Est. Time"
+								= f.select :minutes_to_complete, options_for_select(Order.minutes_to_complete_options)
+							.form_group
+								= label_tag :equipment_required, "Primary Equipment"
+								
+								= label_tag :laser, "Laser", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_laser'
+								
+								= label_tag :sublimation, "Sublimation", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_sublimation'
+								
+								= label_tag :diamond, "Diamond", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_diamond'
+								
+								= label_tag :rotary, "Rotary", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_rotary'
+								
+								= label_tag :sandblast, "Sandblast", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_sandblast'
+								
+								= label_tag :manual, "Manual Labor", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_manual'
+								
+								= label_tag :various, "Various", class: 'checkbox inline'
+								= check_box_tag 'equipment_required_various'
+								
+							
+						.modal-footer
+							%button.btn.btn-primary{'type' => 'submit', 'data-dismiss' => 'modal'} Add 
+							%button.btn.btn-default{'data-dismiss' => 'modal'} Cancel

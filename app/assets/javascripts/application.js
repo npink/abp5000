@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require_tree .
+
+$(function() {
+	//$("#test").hide();
+	//$("#add_button").hide();
+	$("#add_order_button").click( function() {
+		$('#add_order_form').modal('show');
+	});
+	
+});
