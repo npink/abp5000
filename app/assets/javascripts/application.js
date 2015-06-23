@@ -39,4 +39,10 @@ $(function() {
 		location.reload(true);
 	});
 	
+	
+	$(".delete_icon").click(function(){
+		$.post("destroy", {task_id: $(this).data("task-id")}, function() {});
+		location.reload(true);
+	});
+	
 });

@@ -1,7 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww17040\viewh15140\viewkind0
+\margl1440\margr1440\vieww28640\viewh15140\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
 \f0\fs24 \cf0 neXt - A smarter task queue\
@@ -12,8 +12,12 @@ WORK LOG\
 2015 \
 \
 6-23  10-?  			Style \'91task queue\'92 table\
-				Add functions to mark tasks as delegated or done\
-				Add \'91tasks done today\'92 table                                 \
+				Add functions to quickly mark tasks as delegated or done\
+				Add \'91tasks done today\'92 table\
+				(remove logout button)\
+				Add delete feature and icon\
+				(Add function to reset database)\
+				(Push app to heroku, need postgresql)                                \
 \
 6-22  11-5                          Update \'91Add Task\'92 form\
 				Rename \'91Orders\'92 objects to more generic word \'91Tasks\'92\
@@ -36,17 +40,11 @@ WORK LOG\
 \
 TODO\
 \'97\'97\'97\'97\
-X Setup rails app 1/2\
-X Load bootstrap framework\
-X Create login screen and login function 1/2\
-X Create Orders table 1/2\
-X Create menu bar 1\
 Add notepad sidebar to task queue page (just like on workbench)\
 Create \'91Edit Order\'92 form\
 Create update order function\
 Single user \'91staff\'92 password \'91playgolf20142014\'92\
 Create BusinessDay object so we can skip weekends when rendering queue\
-Initial feature is fast, click and two letters and then close editor\
 Change due date formating \'91today\'92 \'91tomorrow\'92, or just date further out\
 get rid of misc basket, Misc orders are added to queue just like other orders\
 Order standup by due date first for next 2 days and then order placed date\
@@ -82,8 +80,6 @@ TASK\
 	Delete Task\
 	Create Task\
 	Edit Task\
-	Show Task\
-	Search Tasks by Client Name\
 	Render Queue\
 \
 USER\
@@ -92,15 +88,6 @@ USER\
 	Initials\
 	Password (same for everyone)\
 \
-NEW IDEAS TO INCORPORATE\
-\'97\'97\'97\'97\'97\
-- App name is \'92neXt\'92 with x checking a box\
-- Task queue appears as a single continuous queue with no distinction between days\
-   - Queue is sorted by due date first and order date second\
-   - All high and medium priority orders will be displayed, low priority orders will be displayed only to make the list up to 10 tasks long\
-- App adjusts priority status of tasks when day changes, so mediums become highs if not done\
-- User only has to set due date, order will automatically float to the top of the queue as the priority changes each day\
-- List tasks completed today at bottom of page\
 	\
 PRIMARY FEATURES\
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\

@@ -23,6 +23,11 @@ class TasksController < ApplicationController
        render nothing: true
     end
     
+    def destroy
+       Task.find( params['task_id'] ).destroy
+       render nothing: true
+    end
+    
     private
     
     def create_task_object
