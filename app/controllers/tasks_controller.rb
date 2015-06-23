@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     
     def initial
        task = Task.find(params[:task_id])
-       task.update( params[:attribute] => params[:value] )
+       task.update( params[:attribute] => params[:value].upcase )
        
        if params[:attribute] == 'completed_by'
           task.update( completed_on: (params[:value].blank? ? nil : Date.today) )
