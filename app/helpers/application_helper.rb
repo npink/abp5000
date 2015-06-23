@@ -25,7 +25,7 @@ module ApplicationHelper
    def render_headshot(task)
       puts task.delegated_to
       if ['DP', 'NP', 'KF', 'SS'].include? task.delegated_to
-         image_tag("headshots/#{task.delegated_to}.jpeg") 
+         image_tag("headshots/#{task.delegated_to.downcase}.jpeg") 
       end
    end
    						
