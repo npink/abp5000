@@ -2,6 +2,18 @@ class UsersController < ApplicationController
     layout false
     skip_before_action :require_login
     
+    def fixtures
+       User.fixtures
+       
+       redirect_to :root
+    end
+  
+    def reset
+       User.reset
+       
+       redirect_to :root
+    end
+    
     def login_form
     end
     

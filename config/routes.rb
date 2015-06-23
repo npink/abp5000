@@ -2,7 +2,8 @@ Rails.application.routes.draw do
     root 'users#login_form'
     
     post 'users/login' => 'users#login'
-    post 'users/logout' => 'users#logout'
+    get 'reset' => 'users#reset'
+    get 'fixtures' => 'users#fixtures'
     
     post 'tasks' => 'tasks#create'
     get 'tasks/render_queue' => 'tasks#render_queue'

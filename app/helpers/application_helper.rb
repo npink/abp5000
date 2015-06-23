@@ -9,5 +9,17 @@ module ApplicationHelper
    		'class' => 'initials_field'									
    	})
    end		
-   										
+   
+   def render_due_date(date)
+      return if date.blank?
+      
+      if date == Date.today
+         "Today"
+      elsif date == Date.today + 1
+         "Tomorrow"
+      else
+         date.strftime("%a, %m-%d")
+      end
+   end				
+   						
 end
