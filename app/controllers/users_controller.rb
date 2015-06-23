@@ -15,8 +15,4 @@ class UsersController < ApplicationController
         end
     end
     
-    def logout
-        session[:initials] = nil
-        redirect_to action: 'login_form'
-    end
 end
