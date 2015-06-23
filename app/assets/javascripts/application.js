@@ -22,4 +22,21 @@ $(function() {
 		$('#add_task_form').modal('show');
 	});
 	
+	$(".initials_field").click(function() {
+		$(this).val("");
+	});
+	
+	$(".initials_field").bind('blur', function(e) {
+		if ( $(this).val().length != 1 ) {
+			var task_object = { 
+				task_id: $(this).data("task-id"),
+				attribute: $(this).data("attribute"),
+				value: $(this).val()
+		   };
+			
+			$.post("initial", task_object , function() {});
+		}
+		location.reload(true);
+	});
+	
 });

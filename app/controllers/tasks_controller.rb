@@ -12,6 +12,17 @@ class TasksController < ApplicationController
        redirect_to(controller: 'tasks', action: 'render_queue')
     end
     
+    def initial
+       task = Task.find(params[:task_id])
+       task.update( params[:attribute] => params[:value] )
+       
+       if params[:attribute] == 'completed_by'
+          task.update( completed_on: (params[:value].blank? ? nil : Date.today) )
+       end
+       
+       render nothing: true
+    end
+    
     private
     
     def create_task_object

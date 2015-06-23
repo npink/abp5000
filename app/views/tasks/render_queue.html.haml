@@ -1,4 +1,4 @@
-%table
+%table.queue_table.table.table-hover.table-bordered
 	%thead
 		%tr
 			%th
@@ -12,6 +12,8 @@
 			%th
 				Delegated?
 			%th
+				Done?
+			%th
 				Due
 	%tbody		
 		- @queue.each do |t|
@@ -20,11 +22,12 @@
 				%td= t.priority
 				%td= t.duration
 				%td= t.summary
-				%td= t.delegated_to
+				%td= initials_field_tag('delegated_to', t)
+				%td= initials_field_tag('completed_by', t)
 				%td= t.due_date
 
 %br
-%table
+%table.table.table-hover.table-bordered
 	%caption Tasks Done Today
 	%thead
 		%tr
@@ -38,12 +41,14 @@
 				Delegated?
 			%th
 				Done?
+			%th
+				Due
 	%tbody
 		- @tasks_done_today.each do |t|
 			%tr
 				%td= t.client_name
 				%td= t.duration
 				%td= t.summary
-				%td= t.delegated_to
-				%td= t.completed_by
-			
+				%td= initials_field_tag('delegated_to', t)
+				%td= initials_field_tag('completed_by', t)
+				%td= t.due_date

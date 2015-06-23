@@ -15,7 +15,7 @@
  *= require_self
  */
 body {
-	font-family: "Optima", serif;
+	font-family: "Verdana" serif;
 }
 
 #page_title {
@@ -41,4 +41,31 @@ body {
 
 .radio_label {
 	display: inline;
+}
+
+.initials_field {
+	width: inherit;
+	text-transform: uppercase;
+}
+
+td, th {
+	text-align: left;
+}
+
+th {
+	text-transform: uppercase;
+	font-size: 80%;
+	color: #999999;
+	font-weight: bold;
+}
+
+table {
+	margin-left: 50px;
+	margin-right: 100px;
+}
+
+caption{
+	text-align: left;
+	color: #999999;
+	font-weight: bold;
 }
