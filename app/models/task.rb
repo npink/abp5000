@@ -1,9 +1,9 @@
 class Task < ActiveRecord::Base
    
    def priority
-      if due_date.blank? or due_date > (Date.today + 1)
+      if due_date.blank? or due_date > (Date.today + 2)
          'L'
-      elsif due_date == Date.today + 1
+      elsif due_date == Date.today + 1 or due_date == Date.today + 2
          'M'
       else
          'H'
@@ -28,13 +28,15 @@ class Task < ActiveRecord::Base
 
       def queue
          # First find orders that are due within 2 days of today
-         tasks = Task.where("completed_by IS NULL AND due_date < ?", Date.today + 2).
+         tasks = Task.where("completed_by IS NULL AND due_date <= ?", Date.today + 2).
             order(:due_date).all
-         # Next find orders with no due date and sort oldest to newest
-         tasks += Task.where("completed_by IS NULL AND due_date IS NULL").all
-         # Last find orders due later than 2 days days from today
-         tasks += Task.where("completed_by IS NULL AND due_date > ?", Date.today + 2).all
-         tasks
+         # Second, sort remaining orders by creation date, oldest to newest
+         tasks += Task.where("completed_by IS NULL AND (due_date IS NULL OR due_date > ?)", Date.today + 2).
+            order(created_at: :asc).all
+      end
+      
+      def completed_today
+         Task.where("completed_on = ?", Date.today).all
       end
       
    end

@@ -2,7 +2,8 @@ class TasksController < ApplicationController
    before_filter :create_task_object
    
     def render_queue
-       @tasks = Task.queue
+       @queue = Task.queue
+       @tasks_done_today = Task.completed_today
     end
     
     def create

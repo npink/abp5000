@@ -13,12 +13,37 @@
 				Delegated?
 			%th
 				Due
-				
-	- @tasks.each do |t|
+	%tbody		
+		- @queue.each do |t|
+			%tr
+				%td= t.client_name
+				%td= t.priority
+				%td= t.duration
+				%td= t.summary
+				%td= t.delegated_to
+				%td= t.due_date
+
+%br
+%table
+	%caption Tasks Done Today
+	%thead
 		%tr
-			%td= t.client_name
-			%td= t.priority
-			%td= t.duration
-			%td= t.summary
-			%td= t.delegated_to
-			%td= t.due_date
+			%th
+				Client Name
+			%th
+				Duration
+			%th
+				Summary
+			%th
+				Delegated?
+			%th
+				Done?
+	%tbody
+		- @tasks_done_today.each do |t|
+			%tr
+				%td= t.client_name
+				%td= t.duration
+				%td= t.summary
+				%td= t.delegated_to
+				%td= t.completed_by
+			

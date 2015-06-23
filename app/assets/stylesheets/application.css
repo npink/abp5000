@@ -14,9 +14,12 @@
  *= require_tree .
  *= require_self
  */
+body {
+	font-family: "Optima", serif;
+}
 
 #page_title {
-	font-family: "Optima", serif;
+
 	font-weight: bold;
 	font-size: 140%;
 	display: inline-block;

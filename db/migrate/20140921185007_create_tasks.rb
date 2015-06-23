@@ -10,6 +10,7 @@ class CreateTasks < ActiveRecord::Migration
          
          t.string    :delegated_to
          t.string    :completed_by
+         t.date      :completed_on
          
          t.timestamps
       end

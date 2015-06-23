@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140921185007) do
     t.string   "duration"
     t.string   "delegated_to"
     t.string   "completed_by"
+    t.date     "completed_on"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
