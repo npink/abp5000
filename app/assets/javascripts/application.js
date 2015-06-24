@@ -16,8 +16,6 @@
 //= require_tree .
 
 $(function() {
-	//$("#test").hide();
-	//$("#add_button").hide();
 	$("#add_task_button").click( function() {
 		$('#add_task_form').modal('show');
 	});
@@ -41,8 +39,13 @@ $(function() {
 	
 	
 	$(".delete_icon").click(function(){
-		$.post("destroy", {task_id: $(this).data("task-id")}, function() {});
-		location.reload(true);
+		if ( confirm("Are you sure you want to delete this task?") ) {
+			$.post("destroy", {task_id: $(this).data("task-id")}, function() {
+			
+			});
+			location.reload(true);
+		}
+
 	});
 	
 });
