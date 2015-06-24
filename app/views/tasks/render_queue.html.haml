@@ -10,9 +10,9 @@
 			%th
 				Summary
 			%th
-				Delegated?
+				Delegated
 			%th
-				Done?
+				Done By
 			%th
 				Due
 			%th
@@ -25,11 +25,16 @@
 				%td= t.duration
 				%td= t.summary
 				%td
-					= initials_field_tag('delegated_to', t)
 					= render_headshot(t)
+					= initials_field_tag('delegated_to', t)
+
+					
 				%td= initials_field_tag('completed_by', t)
 				%td= render_due_date(t.due_date)
-				%td= image_tag('delete_icon.png', {:class => 'delete_icon', 'data-task-id' => t.id} )
+				%td
+					= image_tag('edit_icon.png', {:class => 'edit_icon', 'data-task-id' => t.id} )
+					= image_tag('delete_icon.png', {:class => 'delete_icon', 'data-task-id' => t.id} )
+
 
 %br
 %table.table.table-hover.table-bordered
@@ -43,9 +48,9 @@
 			%th
 				Summary
 			%th
-				Delegated?
+				Delegated To
 			%th
-				Done?
+				Done
 			%th
 				Due
 	%tbody

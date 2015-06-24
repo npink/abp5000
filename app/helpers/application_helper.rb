@@ -6,7 +6,7 @@ module ApplicationHelper
    		'data-attribute' => task_attribute,					
    		'maxlength' => 2, 												
    		'size' => 2, 													
-   		'class' => 'initials_field'									
+   		'class' => 'initials_field initials_updater'									
    	})
    end		
    

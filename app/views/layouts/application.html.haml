@@ -23,20 +23,10 @@
 							%h4.modal-title Add Task
 						
 						.modal-body
-							.form-group
-								= f.text_field :client_name, {placeholder: 'Client Name'}
-							.form-group
-								= f.text_field :summary, {placeholder: 'Summary'}
-							.form-group
-								= f.label :due_date
-								= f.date_field :due_date, value: Date.today.strftime("%Y-%m-%d")
-							.form_group
-								= f.label :duration, "Duration"
-								= f.select :duration, options_for_select(Task.minutes_to_complete_options)
-							.form_group
-								= f.text_field :delegated_to, {placeholder: 'Delegated?'}
-								
+							- @f = f
+							= render 'task_fields'
 							
 						.modal-footer
 							%input.btn.btn-primary{'type' => 'submit'}
 							%button.btn.btn-default{'data-dismiss' => 'modal'} Cancel
+		#edit_task_form.modal.hide.fade

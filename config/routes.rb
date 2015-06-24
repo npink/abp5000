@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     post 'tasks' => 'tasks#create'
     get 'tasks/render_queue' => 'tasks#render_queue'
     post 'tasks/initial' => 'tasks#initial'
+    get 'tasks/:id/edit' => 'tasks#edit'
+    patch 'tasks/:id' => 'tasks#update'
     post 'tasks/destroy' => 'tasks#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.

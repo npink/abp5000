@@ -1,0 +1,15 @@
+.form-group
+	= @f.label :client_name, "Client Name (required)"
+	= @f.text_field :client_name, {placeholder: 'Client Name', size: 15, maxlength: 15}
+.form-group
+	= @f.label :summary, "Summary (required)"
+	= @f.text_field :summary, {placeholder: 'Summary', size: 15, maxlength: 15}
+.form-group
+	= @f.label :due_date
+	= @f.date_field :due_date, value: Date.today.strftime("%Y-%m-%d")
+.form_group
+	= @f.label :duration, "Duration"
+	= @f.select :duration, options_for_select(Task.minutes_to_complete_options)
+.form_group
+	= @f.label :delegated_to, "Delegated"
+	= @f.text_field :delegated_to, {class: 'initials_field', size: 2, maxlength: 2}

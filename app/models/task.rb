@@ -2,11 +2,11 @@ class Task < ActiveRecord::Base
    
    def priority
       if due_date.blank? or due_date > (Date.today + 2)
-         'L'
+         'Low'
       elsif due_date == Date.today + 1 or due_date == Date.today + 2
-         'M'
+         'Medium'
       else
-         'H'
+         'High'
       end
    end
    

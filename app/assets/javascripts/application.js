@@ -14,17 +14,31 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require_tree .
+	
+function validate_task(task_form) {
+	var form = $(task_form);
+	
+	if (form.find("#task_client_name").val().trim().length === 0 || 
+	form.find("#task_summary").val().trim().length === 0 ) {
+		event.preventDefault();
+	}
+}
 
 $(function() {
 	$("#add_task_button").click( function() {
 		$('#add_task_form').modal('show');
+		
+		$('.new_task').submit( function(event) {
+			validate_task(this);
+		});
+		
 	});
 	
 	$(".initials_field").click(function() {
 		$(this).val("");
 	});
 	
-	$(".initials_field").bind('blur', function(e) {
+	$(".initials_updater").bind('blur', function(e) {
 		if ( $(this).val().length != 1 ) {
 			var task_object = { 
 				task_id: $(this).data("task-id"),
@@ -46,6 +60,21 @@ $(function() {
 			location.reload(true);
 		}
 
+	});
+	
+	$(".edit_icon").click(function() {
+		
+		$.get( $(this).data("task-id") + "/edit", function(data) {
+			
+			$('#edit_task_form').html(data);
+			$('#edit_task_form').modal('show');
+			
+			$('.edit_task').submit( function(event) {
+				validate_task(this);
+			});
+			
+		});
+		
 	});
 	
 });

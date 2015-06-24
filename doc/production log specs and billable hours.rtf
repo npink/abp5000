@@ -1,7 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww28640\viewh15140\viewkind0
+\margl1440\margr1440\vieww25720\viewh15140\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
 \f0\fs24 \cf0 neXt - A smarter task queue\
@@ -11,7 +11,11 @@ WORK LOG\
 \'97\'97\'97\'97\'97-\
 2015 \
 \
-6-23  10-?  			Style \'91task queue\'92 table\
+6-24  10-?			Create Edit Task form\
+				Refactor shared code for Create and Edit Task Forms\
+				Create validations for Task Forms\
+\
+6-23  10-5  			Style \'91task queue\'92 table\
 				Add functions to quickly mark tasks as delegated or done\
 				Add \'91tasks done today\'92 table\
 				remove logout function\
@@ -45,28 +49,29 @@ WORK LOG\
 \
 TODO\
 \'97\'97\'97\'97\
+add https to heroku\
 Create BusinessDay object so we can skip weekends when rendering queue\
 Add notepad sidebar to task queue page (just like on workbench)\
-Create \'91Edit Order\'92 form\
 Create update order function\
 Single user \'91staff\'92 password \'91playgolf20142014\'92\
-get rid of misc basket, Misc orders are added to queue just like other orders\
 Order standup by due date first for next 2 days and then order placed date\
 Front-end staff should enter all non-rush orders? still have express basket\
 Add page for \'91frozen orders\'92\
 Duration attribute is ranges: 30 or less, 30 - 1 hour, 1-2, 2-4, 4+\
 Add headshots to tasks done today\
 add mom and dad headshots\
+adjust headshot size, pick great gatsby avator for nick\
 add daily leader headshot to top-right corner for most stars so far\
+create super secret admin page\
+- app history:  auto-delete tasks 30 days after they are completed\
+- 4+ hour tasks: godzilla icon, should always be near the top of the queue\
+- daily leader: icon near top-right of page with stars collected\
 \
+THOUGHTS\
+\'97\'97\'97\
+get rid of misc basket, Misc orders are added to queue just like other orders\
 \
-ACTORS\
-\'97\'97\'97\'97\
-Production staff\
-Sales staff\
-General staff (GS)\
-\
-Objects\
+SOFTWARE OBJECTS\
 -\
 TASK\
 	ATTRIBUTES\
@@ -95,31 +100,6 @@ USER\
 	Initials\
 	Password (same for everyone)\
 \
-	\
-PRIMARY FEATURES\
-\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
-- Staff needs to securely login to the application\
-\
-- PS needs view all orders scheduled for a given date\
-\
-- PS needs to add a task\
-\
-- GS needs to find and delete an order\
-\
-- GS needs to freeze a task (remove it from the queue)\
-\
-- GS needs to edit an Order\'92s details\
-\
-- GS needs to mark an Order as completed\
-\
-- SS needs to find out the status of a task\
-	- Alphabetical ordered list of last 30 days of completed tasks ONLY and unfinished tasks\
-\
-- app history:  auto-delete tasks 30 days after they are completed\
-\
-\
-SECONDARY FEATURES (v2)\
-\'97\'97\'97\
-- GS needs to view a completed task\
-\
-- GS needs to check or update progress on a task (for long tasks)}
+COMMENT\
+	create\
+	list all within the last week}
