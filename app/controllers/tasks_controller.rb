@@ -46,6 +46,10 @@ class TasksController < ApplicationController
        render nothing: true
     end
     
+    def history
+       @task_history = Task.history
+    end
+    
     private
     
     def format_parameters

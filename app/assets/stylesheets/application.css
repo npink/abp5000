@@ -40,6 +40,10 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
 }
 
+#content {
+	margin-left: 50px;
+}
+
 .radio_label {
 	display: inline;
 }
@@ -61,12 +65,12 @@ th {
 }
 
 table {
-	margin-left: 50px;
 	max-width: 90%;
 	min-width: 1100px;
 }
 
 caption{
+	margin-bottom: 10px;
 	text-align: left;
 	color: #999999;
 	font-weight: bold;

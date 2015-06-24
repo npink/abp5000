@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     patch 'tasks/:id' => 'tasks#update'
     post 'tasks/destroy' => 'tasks#destroy'
     
+    get 'tasks/history' => 'tasks#history'
+    
     get 'test' => 'admin#test'
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,28 @@
+%table.table.table-hover.table-bordered
+	%caption Task History (last 30 days)
+	%br
+	%thead
+		%tr
+			%th
+				Client Name
+			%th
+				Duration
+			%th
+				Summary
+			%th
+				Delegated
+			%th
+				Created On
+				
+			%th
+				Completed On
+	%tbody
+		- @task_history.each do |t|
+			%tr
+				%td= t.client_name
+				%td= t.duration
+				%td= t.summary
+				%td= initials_field_tag('delegated_to', t)
+				%td= initials_field_tag('completed_by', t)
+				%td= t.completed_on
+				%td= t.due_date

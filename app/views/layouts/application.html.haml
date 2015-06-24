@@ -9,8 +9,9 @@
 		%nav#top_menu
 			#page_title neXt
 			.btn-group
-				%button.btn Task Queue
+				%button.btn= link_to "Task Queue", controller: 'tasks', action: 'render_queue'
 				%button#add_task_button.btn	Add Task
+				%button.btn= link_to "Task History", controller: 'tasks', action: 'history'
 
 		#content
 			= yield

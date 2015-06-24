@@ -1,4 +1,6 @@
 %table.queue_table.table.table-hover.table-bordered
+	%caption Task Queue
+	%br
 	%thead
 		%tr
 			%th
@@ -22,7 +24,7 @@
 			%tr
 				%td= t.client_name
 				%td= t.priority
-				%td= t.duration
+				%td= t.duration == '8' ? image_tag("godzilla.gif") : t.duration
 				%td= t.summary
 				%td
 					= render_headshot(t)
@@ -39,6 +41,7 @@
 %br
 %table.table.table-hover.table-bordered
 	%caption Tasks Done Today
+	%br
 	%thead
 		%tr
 			%th

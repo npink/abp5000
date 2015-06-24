@@ -36,6 +36,10 @@ class Task < ActiveRecord::Base
          Task.where("completed_on = ?", Date.today).all
       end
       
+      def history
+         Task.where("completed_on IS NOT NULL AND completed_on > ?", Date.today - 30).all
+      end
+      
    end
    
 end

@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
             {client_name: 'Placentia Little League', summary: 'due in 5 days', due_date: (Date.today + 5) },
             {client_name: 'Valencia HS', summary: 'due in 4 days', due_date: (Date.today + 4) },
             {client_name: 'Cal State Fullerton', summary: 'added yesterday, due in 3 days', due_date: (Date.today + 3), created_at: (Time.now - 1.days)},
-            {client_name: 'City of Anaheim', summary: 'done yesterday', completed_by: 'SS', completed_on: (Date.today - 1) },
+            {client_name: 'City of Anaheim', summary: 'done yesterday', completed_by: 'SS', completed_on: (Date.today - 2) },
             {client_name: 'Casablanca', summary: 'due in 2 days', due_date: (Date.today + 2) },
             
          ]

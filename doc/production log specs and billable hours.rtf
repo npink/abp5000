@@ -14,6 +14,7 @@ WORK LOG\
 6-24  10-?			Create Edit Task form\
 				Refactor shared code for Create and Edit Task Forms\
 				Create validations for Task Forms\
+				Create WorkDate Class to skip weekends when rendering task queue\
 \
 6-23  10-5  			Style \'91task queue\'92 table\
 				Add functions to quickly mark tasks as delegated or done\
@@ -50,12 +51,8 @@ WORK LOG\
 TODO\
 \'97\'97\'97\'97\
 add https to heroku\
-Create BusinessDay object so we can skip weekends when rendering queue\
 Add notepad sidebar to task queue page (just like on workbench)\
-Create update order function\
 Single user \'91staff\'92 password \'91playgolf20142014\'92\
-Order standup by due date first for next 2 days and then order placed date\
-Front-end staff should enter all non-rush orders? still have express basket\
 Add page for \'91frozen orders\'92\
 Duration attribute is ranges: 30 or less, 30 - 1 hour, 1-2, 2-4, 4+\
 Add headshots to tasks done today\
@@ -63,6 +60,7 @@ add mom and dad headshots\
 adjust headshot size, pick great gatsby avator for nick\
 add daily leader headshot to top-right corner for most stars so far\
 create super secret admin page\
+\
 - app history:  auto-delete tasks 30 days after they are completed\
 - 4+ hour tasks: godzilla icon, should always be near the top of the queue\
 - daily leader: icon near top-right of page with stars collected\
@@ -70,6 +68,8 @@ create super secret admin page\
 THOUGHTS\
 \'97\'97\'97\
 get rid of misc basket, Misc orders are added to queue just like other orders\
+Order standup by due date first for next 2 days and then order placed date\
+Production staff will be still responsible for entering orders into neXt\
 \
 SOFTWARE OBJECTS\
 -\
