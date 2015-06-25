@@ -2,8 +2,6 @@ Rails.application.routes.draw do
     root 'users#login_form'
     
     post 'users/login' => 'users#login'
-    get 'reset' => 'users#reset'
-    get 'fixtures' => 'users#fixtures'
     
     post 'tasks' => 'tasks#create'
     get 'tasks/render_queue' => 'tasks#render_queue'
@@ -11,8 +9,10 @@ Rails.application.routes.draw do
     get 'tasks/:id/edit' => 'tasks#edit'
     patch 'tasks/:id' => 'tasks#update'
     post 'tasks/destroy' => 'tasks#destroy'
-    
     get 'tasks/history' => 'tasks#history'
+    
+    get 'comments' => 'comments#list'
+    post 'comments' => 'comments#create'
     
     get 'playgolf20142014/test' => 'admin#test'
     get 'playgolf20142014/fixtures' => 'admin#fixtures'

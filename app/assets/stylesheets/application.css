@@ -68,7 +68,7 @@ table.task_table {
 	min-width: 1000px;
 }
 
-caption{
+caption, h2 {
 	margin-bottom: 10px;
 	text-align: left;
 	color: #999999;
@@ -85,4 +85,21 @@ caption{
 
 .cell_small {
 	max-width: 70px;
+}
+
+#comment_text_field {
+	width: inherit;
+}
+
+.comment_body {
+	padding-right: 35px;
+}
+
+.comment_row > td {
+ padding-bottom: 15px;
+}
+
+.comment_timestamp {
+	font-size: 60%;
+	color: #999999;
 }

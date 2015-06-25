@@ -1,13 +1,13 @@
 #add_task_form.modal.hide.fade
 	.modal-dialog
 		.modal-content
-			= form_for @task, url: {action: 'create'} do |f|
+			= form_for @task, url: {controller: 'tasks', action: 'create'} do |f|
 				.modal-header
 					%h4.modal-title Create Task
 				
 				.modal-body
 					- @f = f
-					= render 'task_fields'
+					= render 'tasks/task_fields'
 					
 				.modal-footer
 					%input.btn.btn-primary{'type' => 'submit'}

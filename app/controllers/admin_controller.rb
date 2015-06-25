@@ -36,6 +36,8 @@ class AdminController < ApplicationController
          Task.create t
       end
       
+      Comment.create( {body: "8 day old comment", created_at: (Date.today - 8)} )
+      
       render :nothing => true
    end
    

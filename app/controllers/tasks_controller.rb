@@ -1,7 +1,5 @@
 class TasksController < ApplicationController
    
-   before_filter :create_task_object
-   
     def render_queue
        @queue = Task.queue
        @tasks_done_today = Task.completed_today
@@ -57,7 +55,4 @@ class TasksController < ApplicationController
        params[:task][:delegated_to] = params[:task][:delegated_to].upcase rescue nil
     end
     
-    def create_task_object
-       @task = Task.new
-    end
 end
