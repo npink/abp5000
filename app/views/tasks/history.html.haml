@@ -23,7 +23,11 @@
 				%td= t.client_name
 				%td= render_duration(t.duration)
 				%td= t.summary
-				%td= render_headshot(t.delegated_to)
-				%td= render_headshot(t.completed_by)
+				%td 
+					= render_headshot(t.delegated_to)
+					= t.delegated_to
+				%td
+					= render_headshot(t.completed_by)
+					= t.completed_by
 				%td= t.created_at.strftime("%a, %m-%d")
 				%td= t.completed_on.strftime("%a, %m-%d")

@@ -23,8 +23,8 @@ module ApplicationHelper
    end				
    
    def render_headshot(initials)
-      if ['DP', 'NP', 'KF', 'SS'].include? initials
-         image_tag("headshots/#{initials.downcase}.jpeg") 
+      if ['DP', 'NP', 'KF', 'SS', 'SP', 'PP', 'GP'].include? initials
+         image_tag("headshots/#{initials.downcase}.jpeg")
       end
    end
    

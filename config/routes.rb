@@ -14,9 +14,9 @@ Rails.application.routes.draw do
     
     get 'tasks/history' => 'tasks#history'
     
-    get 'admin/test' => 'admin#test'
-    get 'admin/fixtures' => 'admin#fixtures'
-    get 'admin/reset' => 'admin#reset'
+    get 'playgolf20142014/test' => 'admin#test'
+    get 'playgolf20142014/fixtures' => 'admin#fixtures'
+    get 'playgolf20142014/reset' => 'admin#reset'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
