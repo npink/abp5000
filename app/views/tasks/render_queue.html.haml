@@ -1,45 +1,41 @@
-%table.queue_table.table.table-hover.table-bordered
+%table.queue_table.table.table-hover.table-bordered.task_table
 	%caption Task Queue
 	%br
 	%thead
 		%tr
-			%th
-				Client Name
-			%th
-				Priority
-			%th
-				Duration
-			%th
+			%th.cell_large
+				Client
+			%th.cell_small
+				Pri.
+			%th.cell_small
+				Size
+			%th.cell_large
 				Summary
-			%th
-				Responsible
-			%th
+			%th.cell_small
+				Respon.
+			%th.cell_small
 				Done?
-			%th
+			%th.cell_medium
 				Due
-			%th
+			%th.cell_medium
 			
 	%tbody		
 		- @queue.each do |t|
 			%tr
-				%td= t.client_name
-				%td= t.priority
-				%td= render_duration(t.duration)
-				%td= t.summary
-				%td
+				%td.cell_large= t.client_name
+				%td.cell_small= t.priority
+				%td.cell_small= render_duration(t.duration)
+				%td.cell_large= t.summary
+				%td.cell_small
 					= render_headshot(t.delegated_to)
 					= initials_field_tag('delegated_to', t)
-
-					
-				%td= initials_field_tag('completed_by', t)
-				%td= render_due_date(t.due_date)
-				%td
+				%td.cell_small= initials_field_tag('completed_by', t)
+				%td.cell_medium= render_due_date(t.due_date)
+				%td.cell_medium
 					= image_tag('edit_icon.png', {:class => 'edit_icon', 'data-task-id' => t.id} )
 					= image_tag('delete_icon.png', {:class => 'delete_icon', 'data-task-id' => t.id} )
-
-
 %br
-%table.table.table-hover.table-bordered
+%table.table.table-hover.table-bordered.task_table
 	%caption Tasks Done Today
 	%br
 	%thead
@@ -47,13 +43,17 @@
 			%th
 				Client Name
 			%th
-				Duration
+				Size
 			%th
 				Summary
 			%th
-				Responsible
+				Respon.
 			%th
 				Done?
+			%th
+				Created
+			%th
+				Due
 	%tbody
 		- @tasks_done_today.each do |t|
 			%tr
@@ -65,4 +65,6 @@
 					= initials_field_tag('delegated_to', t)
 				%td
 					= render_headshot(t.completed_by)
-					= initials_field_tag('completed_by', t)		
+					= initials_field_tag('completed_by', t)
+				%td= t.created_at.strftime("%a, %m-%d")
+				%td.cell_medium= render_due_date(t.due_date)

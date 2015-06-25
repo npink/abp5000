@@ -1,22 +1,22 @@
-%table.table.table-hover.table-bordered
+%table.table.table-hover.table-bordered.task_table
 	%caption Task History (last 30 days)
 	%br
 	%thead
 		%tr
 			%th
-				Client Name
+				Client
 			%th
-				Duration
+				Size
 			%th
 				Summary
 			%th
-				Responsible
+				Resp.
 			%th
 				Done?
 			%th
-				Created On
+				Created
 			%th
-				Completed On
+				Completed
 	%tbody
 		- @task_history.each do |t|
 			%tr

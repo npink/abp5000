@@ -20,7 +20,6 @@ body {
 }
 
 #page_title {
-
 	font-weight: bold;
 	font-size: 140%;
 	display: inline-block;
@@ -42,6 +41,7 @@ body {
 
 #content {
 	margin-left: 50px;
+	margin-right: 50px;
 }
 
 .radio_label {
@@ -64,9 +64,8 @@ th {
 	font-weight: bold;
 }
 
-table {
-	max-width: 90%;
-	min-width: 1100px;
+table.task_table {
+	min-width: 1000px;
 }
 
 caption{
@@ -74,4 +73,16 @@ caption{
 	text-align: left;
 	color: #999999;
 	font-weight: bold;
+}
+
+.cell_large {
+	max-width: 210px;
+}
+
+.cell_medium {
+	max-width: 150px;
+}
+
+.cell_small {
+	max-width: 70px;
 }
