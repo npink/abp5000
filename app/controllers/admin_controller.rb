@@ -43,7 +43,7 @@ class AdminController < ApplicationController
       User.delete_all
       Task.delete_all
 
-      User.create :initials => 'staff', :password => 'staff'
+      User.create :initials => 'staff', :password => 'playgolf20142014'
       
       render :nothing => true
    end
