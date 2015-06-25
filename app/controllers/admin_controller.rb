@@ -12,7 +12,7 @@ class AdminController < ApplicationController
       User.delete_all
       Task.delete_all
 
-      User.create :initials => 'staff', :password => 'staff'
+      User.create :initials => 'staff', :password => 'playgolf20142014'
 
       tasks = [
          {client_name: 'Action Property', summary: 'added 7 days ago, no due date', created_at: (Time.now - 7.days) },
