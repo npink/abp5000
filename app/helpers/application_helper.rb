@@ -29,7 +29,30 @@ module ApplicationHelper
    end
    
    def render_duration(duration)
-      duration == '8' ? image_tag("godzilla.gif") : duration
+      html = ""
+      
+      if duration == '30'
+         image_tag('star_icon.png')
+      elsif duration == '60'
+         2.times do
+            html += image_tag('star_icon.png')
+         end
+         raw html
+      elsif duration == '2'
+         3.times do
+            html += image_tag('star_icon.png')
+         end
+         raw html
+      elsif duration == '4'
+         4.times do
+            html += image_tag('star_icon.png')
+         end
+         raw html
+      elsif duration == '8'
+         image_tag("godzilla.gif")
+      else
+         duration
+      end
    end
    						
 end

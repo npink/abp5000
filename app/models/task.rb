@@ -14,11 +14,11 @@ class Task < ActiveRecord::Base
       
       def minutes_to_complete_options
          {
-            '< 30 mins'    => 30,
-            '30 - 60 mins' => 60,
-            '1 - 2 hours'  => 2,
-            '2 - 4 hours'  => 4,
-            '> 4 hours'    => 8
+            '< 30 mins'    => '30',
+            '30 - 60 mins' => '60',
+            '1 - 2 hours'  => '2',
+            '2 - 4 hours'  => '4',
+            '> 4 hours'    => '8'
          }
       end
       
