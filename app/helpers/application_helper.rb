@@ -22,11 +22,14 @@ module ApplicationHelper
       end
    end				
    
-   def render_headshot(task)
-      puts task.delegated_to
-      if ['DP', 'NP', 'KF', 'SS'].include? task.delegated_to
-         image_tag("headshots/#{task.delegated_to.downcase}.jpeg") 
+   def render_headshot(initials)
+      if ['DP', 'NP', 'KF', 'SS'].include? initials
+         image_tag("headshots/#{initials.downcase}.jpeg") 
       end
+   end
+   
+   def render_duration(duration)
+      duration == '8' ? image_tag("godzilla.gif") : duration
    end
    						
 end

@@ -12,9 +12,9 @@
 			%th
 				Summary
 			%th
-				Delegated
+				Responsible
 			%th
-				Done By
+				Done?
 			%th
 				Due
 			%th
@@ -24,10 +24,10 @@
 			%tr
 				%td= t.client_name
 				%td= t.priority
-				%td= t.duration == '8' ? image_tag("godzilla.gif") : t.duration
+				%td= render_duration(t.duration)
 				%td= t.summary
 				%td
-					= render_headshot(t)
+					= render_headshot(t.delegated_to)
 					= initials_field_tag('delegated_to', t)
 
 					
@@ -51,17 +51,18 @@
 			%th
 				Summary
 			%th
-				Delegated To
+				Responsible
 			%th
-				Done
-			%th
-				Due
+				Done?
 	%tbody
 		- @tasks_done_today.each do |t|
 			%tr
 				%td= t.client_name
-				%td= t.duration
+				%td= render_duration(t.duration)
 				%td= t.summary
-				%td= initials_field_tag('delegated_to', t)
-				%td= initials_field_tag('completed_by', t)
-				%td= t.due_date
+				%td
+					= render_headshot(t.delegated_to)
+					= initials_field_tag('delegated_to', t)
+				%td
+					= render_headshot(t.completed_by)
+					= initials_field_tag('completed_by', t)		

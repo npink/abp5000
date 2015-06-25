@@ -9,25 +9,10 @@
 		%nav#top_menu
 			#page_title neXt
 			.btn-group
-				%button.btn= link_to "Task Queue", controller: 'tasks', action: 'render_queue'
-				%button#add_task_button.btn	Add Task
-				%button.btn= link_to "Task History", controller: 'tasks', action: 'history'
+				= link_to "Task Queue", {controller: 'tasks', action: 'render_queue'}, class: 'btn'
+				%button#add_task_button.btn	Create Task
+				= link_to "Task History", {controller: 'tasks', action: 'history'}, class: 'btn'
 
 		#content
 			= yield
-		
-		#add_task_form.modal.hide.fade
-			.modal-dialog
-				.modal-content
-					= form_for @task, url: {action: 'create'} do |f|
-						.modal-header
-							%h4.modal-title Add Task
-						
-						.modal-body
-							- @f = f
-							= render 'task_fields'
-							
-						.modal-footer
-							%input.btn.btn-primary{'type' => 'submit'}
-							%button.btn.btn-default{'data-dismiss' => 'modal'} Cancel
-		#edit_task_form.modal.hide.fade
+		= render "create"
