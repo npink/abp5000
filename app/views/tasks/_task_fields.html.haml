@@ -1,12 +1,22 @@
 .form-group
 	= @f.label :client_name, "Name (required)"
-	= @f.text_field :client_name, {placeholder: 'Client Name', size: 25, maxlength: 25}
+	= @f.text_field :client_name, {size: 25, maxlength: 25}
 .form-group
 	= @f.label :summary, "Notes"
-	= @f.text_field :summary, {placeholder: 'Summary', size: 40, maxlength: 40}
+	= @f.text_field :summary, {size: 40, maxlength: 40}
 .form-group
 	= @f.label :due_date
 	= @f.date_field :due_date
+	
+.form-group
+	= @f.label :iced?, 'Frozen?'
+	.radio_group
+		= @f.label 'iced_no', "No", {class: 'radio_label'}
+		= @f.radio_button 'iced', "false", checked: !@task.iced
+	.radio_group
+		= @f.label 'iced_yes', "Yes", {class: 'radio_label'}
+		= @f.radio_button 'iced', "true", checked: @task.iced
+	
 .form_group
 	= @f.label :duration, "Duration"
 	= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)

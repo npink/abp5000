@@ -20,14 +20,14 @@ body {
 }
 
 #page_title {
-	font-weight: bold;
-	font-size: 140%;
+
+	font-size: 120%;
 	display: inline-block;
 	width: 110px;
 }
 
 #top_menu {
-	font-size: 120%;
+	font-weight: bold;
 	padding: 10px;
 	background: rgba(242,246,248,1);
 	background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
@@ -39,9 +39,18 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
 }
 
+#add_task_button {
+	font-weight: bold;
+}
+
 #content {
 	margin-left: 50px;
 	margin-right: 50px;
+}
+
+.radio_group {
+	display: inline-block;
+	margin: 0 10px;
 }
 
 .radio_label {

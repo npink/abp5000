@@ -1,4 +1,4 @@
-%h2 Twitter
+%h2 News
 
 = form_for @comment, url: {controller: 'comments', action: 'create'} do |f|
 	= f.text_field :body, {size: 100, maxlength: 100, id: 'comment_text_field'}

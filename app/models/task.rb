@@ -1,7 +1,9 @@
 class Task < ActiveRecord::Base
    
    def priority
-      if due_date.blank? or due_date > WorkDate.get(2)
+      if iced?
+         'F'
+      elsif due_date.blank? or due_date > WorkDate.get(2)
          'L'
       elsif due_date > Date.today
          'M'
@@ -25,11 +27,13 @@ class Task < ActiveRecord::Base
       # Find incompleted orders and sort by due date and creation date
       def queue
          # First find orders that are due within 2 days of today
-         tasks = Task.where("completed_on IS NULL AND due_date <= ?", WorkDate.get(2) ).
+         tasks = Task.where("completed_on IS NULL AND iced = ? AND due_date <= ?", false, WorkDate.get(2) ).
             order(:due_date).all
          # Second, sort remaining orders by creation date, oldest to newest
-         tasks += Task.where("completed_on IS NULL AND (due_date IS NULL OR due_date > ?)", WorkDate.get(2) ).
+         tasks += Task.where("completed_on IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", false, WorkDate.get(2) ).
             order(created_at: :asc).all
+         # Last, get frozen orders
+         tasks += Task.where("completed_on IS NULL AND iced = ?", true)
       end
       
       def completed_today

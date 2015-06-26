@@ -10,9 +10,10 @@
 			#page_title neXt
 			.btn-group
 				= link_to "Task Queue", {controller: 'tasks', action: 'render_queue'}, class: 'btn'
-				%button#add_task_button.btn	Create Task
 				= link_to "Task History", {controller: 'tasks', action: 'history'}, class: 'btn'
-				= link_to "Twitter", {controller: 'comments', action: 'list'}, class: 'btn'
+				= link_to "News", {controller: 'comments', action: 'list'}, class: 'btn'
+			.btn-group
+				%button#add_task_button.btn	Create Task
 
 		#content
 			= yield
