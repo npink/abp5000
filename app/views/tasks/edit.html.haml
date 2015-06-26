@@ -8,12 +8,7 @@
 			.modal-body
 			
 				- @f = f
-				= render "task_fields"
-				
-				.form_group
-					= f.label :completed_by, "Completed By"
-					= f.text_field :completed_by, {placeholder: 'Done?', class: 'initials_field', size: 2, maxlength: 2}
-					
+				= render "task_fields"	
 				
 			.modal-footer
 				%input.btn.btn-primary{'type' => 'submit'}

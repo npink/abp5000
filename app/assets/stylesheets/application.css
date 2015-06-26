@@ -48,6 +48,14 @@ body {
 	margin-right: 50px;
 }
 
+.modal-body {
+	max-height: 700px;
+}
+
+.modal-header {
+	padding: 0 15px;
+}
+
 .radio_group {
 	display: inline-block;
 	margin: 0 10px;
