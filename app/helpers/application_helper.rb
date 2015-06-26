@@ -8,7 +8,24 @@ module ApplicationHelper
    		'size' => 2, 													
    		'class' => 'initials_field initials_updater'									
    	})
-   end		
+   end	
+   
+   def render_priority(priority)
+      
+      if priority == 'L'
+         color = 'green'
+      elsif priority == 'M'
+         color = 'orange'
+      elsif priority == 'H'
+         color = 'red'
+      elsif priority == 'F'
+         color = 'blue'
+      else
+         color = ''
+      end
+      
+      color.blank? ? priority : image_tag("#{color}_circle.png", height: '20', width: '20')
+   end	
    
    def render_due_date(date)
       return if date.blank?
