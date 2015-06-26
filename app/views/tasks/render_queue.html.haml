@@ -29,9 +29,12 @@
 
 				%td.cell_large= t.summary
 				%td.cell_small
-					= render_headshot(t.delegated_to)
-					= initials_field_tag('delegated_to', t)
-				%td.cell_small= initials_field_tag('completed_by', t)
+					- unless t.iced
+						= render_headshot(t.delegated_to)
+						= initials_field_tag('delegated_to', t)
+				%td.cell_small 
+					- unless t.iced
+						= initials_field_tag('completed_by', t)
 				%td.cell_medium= render_due_date(t.due_date)
 				%td.cell_medium
 					= image_tag('edit_icon.png', {:class => 'edit_icon', 'data-task-id' => t.id} )
