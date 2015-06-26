@@ -18,10 +18,11 @@
 			%th.cell_medium
 				Due
 			%th.cell_medium
+				Edit
 			
 	%tbody		
 		- @queue.each do |t|
-			%tr
+			%tr.queue_row
 				%td.cell_large= t.client_name
 				%td.cell_small= render_priority(t.priority)
 				%td.cell_small= render_duration(t.duration)
@@ -34,7 +35,6 @@
 				%td.cell_medium= render_due_date(t.due_date)
 				%td.cell_medium
 					= image_tag('edit_icon.png', {:class => 'edit_icon', 'data-task-id' => t.id} )
-					= image_tag('delete_icon.png', {:class => 'delete_icon', 'data-task-id' => t.id} )
 %br
 %table.table.table-hover.table-bordered.task_table
 	%caption Tasks Done Today

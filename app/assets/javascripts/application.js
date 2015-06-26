@@ -51,16 +51,6 @@ $(function() {
 	});
 	
 	
-	$(".delete_icon").click(function(){
-		if ( confirm("Are you sure you want to delete this task?") ) {
-			$.post("destroy", {task_id: $(this).data("task-id")}, function() {
-			
-			});
-			location.reload(true);
-		}
-
-	});
-	
 	$(".edit_icon").click(function() {
 		
 		$.get( $(this).data("task-id") + "/edit", function(data) {
@@ -72,8 +62,26 @@ $(function() {
 				validate_task(this);
 			});
 			
+			$(".delete_task_button").click(function(){
+				event.preventDefault();
+				if ( confirm("Are you sure you want to delete this task?") ) {
+					$.post("destroy", {task_id: $(this).data("task-id")}, function() {
+			
+					});
+					location.reload(true);
+				}
+			});
+			
+			
 		});
 		
 	});
+	
+	$(".edit_icon").css('visibility','hidden');
+	
+	$(".queue_row").hover(
+		function() {$(this).find(".edit_icon").css('visibility','visible'); },
+		function() {$(this).find(".edit_icon").css('visibility','hidden'); }
+	);
 	
 });
