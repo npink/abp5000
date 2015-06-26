@@ -18,8 +18,7 @@
 function validate_task(task_form) {
 	var form = $(task_form);
 	
-	if (form.find("#task_client_name").val().trim().length === 0 || 
-	form.find("#task_summary").val().trim().length === 0 ) {
+	if (form.find("#task_client_name").val().trim().length === 0) {
 		event.preventDefault();
 	}
 }

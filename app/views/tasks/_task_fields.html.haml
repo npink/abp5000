@@ -1,8 +1,8 @@
 .form-group
-	= @f.label :client_name, "Client Name (required)"
+	= @f.label :client_name, "Name (required)"
 	= @f.text_field :client_name, {placeholder: 'Client Name', size: 25, maxlength: 25}
 .form-group
-	= @f.label :summary, "Summary (required)"
+	= @f.label :summary, "Notes"
 	= @f.text_field :summary, {placeholder: 'Summary', size: 40, maxlength: 40}
 .form-group
 	= @f.label :due_date
