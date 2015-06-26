@@ -6,7 +6,7 @@
 	= @f.text_field :summary, {placeholder: 'Summary', size: 40, maxlength: 40}
 .form-group
 	= @f.label :due_date
-	= @f.date_field :due_date, value: Date.today.strftime("%Y-%m-%d")
+	= @f.date_field :due_date
 .form_group
 	= @f.label :duration, "Duration"
 	= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)
