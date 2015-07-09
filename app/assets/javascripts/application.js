@@ -24,6 +24,9 @@ function validate_task(task_form) {
 }
 
 $(function() {
+	/* test */
+	//alert(location);
+	
 	$("#add_task_button").click( function() {
 		$('#add_task_form').modal('show');
 		
@@ -37,51 +40,43 @@ $(function() {
 		$(this).val("");
 	});
 	
-	$(".initials_updater").bind('blur', function(e) {
-		if ( $(this).val().length != 1 ) {
+	$(".initials_updater").bind('keypress', function(e) {
+		if (e.keyCode == 13) {
 			var task_object = { 
 				task_id: $(this).data("task-id"),
 				attribute: $(this).data("attribute"),
 				value: $(this).val()
 		   };
-			
-			$.post("initial", task_object , function() {});
+		
+			$.post("initial", task_object , function(url) {
+				location.load(url);
+			});
 		}
-		location.reload(true);
+
 	});
 	
 	
-	$(".edit_icon").click(function() {
-		
-		$.get( $(this).data("task-id") + "/edit", function(data) {
+	$(".task_row").click(function(event) {
+		if ( !$(event.target).hasClass('initials_field') ) {
+			$.get( $(this).data("task-id") + "/edit", function(data) {
 			
-			$('#edit_task_form').html(data);
-			$('#edit_task_form').modal('show');
+				$('#edit_task_form').html(data);
+				$('#edit_task_form').modal('show');
 			
-			$('.edit_task').submit( function(event) {
-				validate_task(this);
+				$('.edit_task').submit( function(e) {
+					validate_task(this);
+				});
+				
+				$(".delete_task_button").click(function(event){
+					if ( confirm("Are you sure you want to delete this task?") ) {
+						$.post("destroy", {task_id: $(this).data("task-id")}, function() {
+							location.reload(true);
+						});
+					}
+				});
+			
 			});
-			
-			$(".delete_task_button").click(function(){
-				event.preventDefault();
-				if ( confirm("Are you sure you want to delete this task?") ) {
-					$.post("destroy", {task_id: $(this).data("task-id")}, function() {
-			
-					});
-					location.reload(true);
-				}
-			});
-			
-			
-		});
-		
+		}
 	});
-	
-	$(".edit_icon").css('visibility','hidden');
-	
-	$(".queue_row").hover(
-		function() {$(this).find(".edit_icon").css('visibility','visible'); },
-		function() {$(this).find(".edit_icon").css('visibility','hidden'); }
-	);
 	
 });

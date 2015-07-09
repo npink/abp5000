@@ -2,7 +2,7 @@
 
 = form_for @comment, url: {controller: 'comments', action: 'create'} do |f|
 	= f.text_field :body, {size: 100, maxlength: 100, id: 'comment_text_field'}
-	%input.btn.btn-primary{'type' => 'submit'}
+	%input.btn.btn-primary{'type' => 'submit', 'value' => 'Add'}
 
 %table
 	%tbody

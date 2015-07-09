@@ -1,28 +1,33 @@
 %table.table.table-hover.table-bordered.task_table
-	%caption Task History - Last 30 days
+	%caption Task History - Completed in last 30 days
 	%br
 	%thead
 		%tr
 			%th
-				Name
+				Client/Task Name
 			%th
-				Diff.
+				Size
 			%th
 				Notes
 			%th
 				Resp.
 			%th
-				Done?
+				Completed By
 			%th
 				Created
-			%th
-				Completed
 	%tbody
+		- completed_on = Date.today
+		%tr.date_row
+			%th{'colspan' => '6'} Today
 		- @task_history.each do |t|
-			%tr
+			- if completed_on != t.completed_on.to_date
+				- completed_on = t.completed_on.to_date
+				%tr.date_row
+					%th{'colspan' => '6'}= completed_on.strftime("%a, %m-%d")
+			%tr.task_row{'data-task-id' => t.id}
 				%td= t.client_name
 				%td= render_duration(t.duration)
-				%td= t.summary
+				%td= render_summary(t.summary)
 				%td 
 					= render_headshot(t.delegated_to)
 					= t.delegated_to
@@ -30,4 +35,3 @@
 					= render_headshot(t.completed_by)
 					= t.completed_by
 				%td= t.created_at.strftime("%a, %m-%d")
-				%td= t.completed_on.strftime("%a, %m-%d")

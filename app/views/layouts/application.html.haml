@@ -17,5 +17,13 @@
 				%button#add_task_button.btn	Create Task
 
 		#content
+			- if flash[:notice]
+				%div.alert.alert-success{'role' => "alert"}= flash[:notice]
+			- if @latest_news
+				%div.alert.alert-info{'role' => "alert"}= "Latest News: '#{@latest_news}'"
 			= yield
+			
 		= render "tasks/create"
+		
+		#footer
+			= "Version 3, Last updated July 9, 2015 ---- (Date: #{Date.today}, Time: #{Time.now})"

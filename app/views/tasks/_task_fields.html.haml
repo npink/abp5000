@@ -1,15 +1,15 @@
 .form-group
-	= @f.label :client_name, "Name (required)"
+	= @f.label :client_name, "Client/Task Name (required)", class: 'field_header'
 	= @f.text_field :client_name, {size: 25, maxlength: 25}
 .form-group
-	= @f.label :summary, "Notes"
-	= @f.text_field :summary, {size: 40, maxlength: 40}
+	= @f.label :summary, "Notes", class: 'field_header'
+	= @f.text_area :summary, {maxlength: '255', rows: ("#{@task.summary.lines.size}" rescue '1')}
 .form-group
-	= @f.label :due_date
+	= @f.label :due_date, class: 'field_header'
 	= @f.date_field :due_date
 	
-.form-group
-	= @f.label :iced?, 'Frozen?'
+.form-group.frozen-field
+	= @f.label :iced?, 'Frozen?', class: 'field_header'
 	.radio_group
 		= @f.label 'iced_no', "No", {class: 'radio_label'}
 		= @f.radio_button 'iced', "false", checked: !@task.iced
@@ -18,11 +18,11 @@
 		= @f.radio_button 'iced', "true", checked: @task.iced
 	
 .form_group
-	= @f.label :duration, "Duration"
+	= @f.label :duration, "Size", class: 'field_header'
 	= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)
 .form_group
-	= @f.label :delegated_to, "Delegated"
+	= @f.label :delegated_to, "Responsible", class: 'field_header'
 	= @f.text_field :delegated_to, {class: 'initials_field', size: 2, maxlength: 2}
 .form_group
-	= @f.label :completed_by, "Completed By"
+	= @f.label :completed_by, "Completed By", class: 'field_header'
 	= @f.text_field :completed_by, {class: 'initials_field', size: 2, maxlength: 2}

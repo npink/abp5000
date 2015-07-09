@@ -27,6 +27,17 @@ module ApplicationHelper
       color.blank? ? priority : image_tag("#{color}_circle.png", height: '20', width: '20')
    end	
    
+   def render_summary(summary)
+      begin
+         lines = summary.lines
+         text = lines[0][0,30]
+         text += '...' if lines[0].size > 30 or lines.size > 1
+         text
+      rescue
+         summary
+      end
+   end
+   
    def render_due_date(date)
       return if date.blank?
       

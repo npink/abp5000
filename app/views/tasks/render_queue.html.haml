@@ -1,33 +1,32 @@
 %table.queue_table.table.table-hover.table-bordered.task_table
 	%caption Task Queue
-	%br
 	%thead
 		%tr
 			%th.cell_large
-				Name
+				Client/Task Name
 			%th.cell_small
 				Pri.
 			%th.cell_small
-				Diff.
+				Size
 			%th.cell_large
 				Notes
 			%th.cell_small
 				Respon.
 			%th.cell_small
-				Done?
+				Completed By
 			%th.cell_medium
-				Due
+				Due Date
 			%th.cell_medium
-				Edit
+				Created
 			
 	%tbody		
-		- @queue.each do |t|
-			%tr.queue_row
+		- @tasks.each do |t|
+			%tr.task_row{'data-task-id' => t.id}
 				%td.cell_large= t.client_name
 				%td.cell_small= render_priority(t.priority)
 				%td.cell_small= render_duration(t.duration)
 
-				%td.cell_large= t.summary
+				%td.cell_large= render_summary(t.summary)
 				%td.cell_small
 					- unless t.iced
 						= render_headshot(t.delegated_to)
@@ -36,39 +35,4 @@
 					- unless t.iced
 						= initials_field_tag('completed_by', t)
 				%td.cell_medium= render_due_date(t.due_date)
-				%td.cell_medium
-					= image_tag('edit_icon.png', {:class => 'edit_icon', 'data-task-id' => t.id} )
-%br
-%table.table.table-hover.table-bordered.task_table
-	%caption Tasks Done Today
-	%br
-	%thead
-		%tr
-			%th
-				Name
-			%th
-				Diff.
-			%th
-				Notes
-			%th
-				Respon.
-			%th
-				Done?
-			%th
-				Created
-			%th
-				Due
-	%tbody
-		- @tasks_done_today.each do |t|
-			%tr
-				%td= t.client_name
-				%td= render_duration(t.duration)
-				%td= t.summary
-				%td
-					= render_headshot(t.delegated_to)
-					= initials_field_tag('delegated_to', t)
-				%td
-					= render_headshot(t.completed_by)
-					= initials_field_tag('completed_by', t)
-				%td= t.created_at.strftime("%a, %m-%d")
-				%td.cell_medium= render_due_date(t.due_date)
+				%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"

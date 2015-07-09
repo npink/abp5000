@@ -16,27 +16,23 @@
  */
 body {
 	font-family: "Verdana" serif;
-	font-size: 130%;
+	font-size: 100%;
 }
 
 #page_title {
-
-	font-size: 120%;
 	display: inline-block;
-	width: 110px;
+	width: 75px;
+}
+
+h2 {
+	font-size: 120%;
 }
 
 #top_menu {
 	font-weight: bold;
 	padding: 10px;
-	background: rgba(242,246,248,1);
-	background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(242,246,248,1)), color-stop(48%, rgba(216,225,231,1)), color-stop(78%, rgba(181,198,208,1)), color-stop(99%, rgba(149,173,187,1)), color-stop(100%, rgba(224,239,249,1)));
-	background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
-	background: -o-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
-	background: -ms-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
-	background: linear-gradient(to bottom, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 48%, rgba(181,198,208,1) 78%, rgba(149,173,187,1) 99%, rgba(224,239,249,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
+	background-color: #eee;
+	border-bottom: 1px solid #bbb;
 }
 
 #add_task_button {
@@ -46,6 +42,12 @@ body {
 #content {
 	margin-left: 50px;
 	margin-right: 50px;
+	margin-top: 10px;
+}
+
+.alert {
+	width: 100%;
+	padding: 10px;
 }
 
 .modal-body {
@@ -54,6 +56,10 @@ body {
 
 .modal-header {
 	padding: 0 15px;
+}
+
+.frozen-field {
+	margin:15px 0;
 }
 
 .radio_group {
@@ -70,12 +76,15 @@ body {
 	text-transform: uppercase;
 }
 
+th {
+	background-color: #eee;
+}
+
 td, th {
 	text-align: left;
 }
 
-th {
-	text-transform: uppercase;
+th, .field_header {
 	font-size: 80%;
 	color: #999999;
 	font-weight: bold;
@@ -92,6 +101,10 @@ caption, h2 {
 	font-weight: bold;
 }
 
+.task_row {
+	cursor: url(magnifying_glass_icon.png), zoom-in;
+}
+
 .cell_large {
 	max-width: 210px;
 }
@@ -102,6 +115,10 @@ caption, h2 {
 
 .cell_small {
 	max-width: 70px;
+}
+
+.date_row > th:hover {
+  background-color: #eee !important;
 }
 
 #comment_text_field {
@@ -119,4 +136,13 @@ caption, h2 {
 .comment_timestamp {
 	font-size: 60%;
 	color: #999999;
+}
+
+#footer {
+	background-color: #eee;
+	padding: 10px;
+	color: #999999;
+	font-size: 70%;
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
 }

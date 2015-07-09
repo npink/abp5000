@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   before_action :require_login
   before_filter :create_task_object
+  before_filter :get_latest_news
       
   private
   
@@ -16,4 +17,8 @@ class ApplicationController < ActionController::Base
      @task = Task.new
   end
   
+  def get_latest_news
+     comment = Comment.order(created_at: :desc).first
+     comment.created_at + 2.hours > Time.now ? @latest_news = comment.body : @latest_news
+  end
 end

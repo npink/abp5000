@@ -1,13 +1,23 @@
 class TasksController < ApplicationController
    
     def render_queue
-       @queue = Task.queue
-       @tasks_done_today = Task.completed_today
+       # First find orders that are due within 2 days of today
+       @tasks = Task.where("LENGTH(completed_by) <> 2 AND iced = ? AND due_date <= ?", false, WorkDate.get(2) ).
+          order(:due_date).all
+       # Second, sort remaining orders by creation date, oldest to newest
+       @tasks += Task.where("LENGTH(completed_by) <> 2 AND iced = ? AND (due_date IS NULL OR due_date > ?)", false, WorkDate.get(2) ).
+          order(created_at: :asc).all
+       # Last, get frozen orders
+       @tasks += Task.where("completed_on IS NULL AND iced = ?", true)
+       
+       @latest_news = Comment.order(created_at: :desc).first.body
     end
     
     def create
        format_parameters
        Task.create params[:task]
+       
+       flash[:notice] = "Task '#{params[:task][:client_name]}' created"
        
        redirect_to(controller: 'tasks', action: 'render_queue')
     end
@@ -17,10 +27,16 @@ class TasksController < ApplicationController
        task.update( params[:attribute] => params[:value].upcase )
        
        if params[:attribute] == 'completed_by'
+          flash[:notice] = "Task '#{task.client_name}' completed"
           task.update( completed_on: (params[:value].blank? ? nil : Date.today) )
+       else
+          flash[:notice] = "Task '#{task.client_name}' updated"
        end
        
-       render nothing: true
+       
+       flash.keep(:notice)
+       
+       render js: "window.location = '#{url_for(controller: 'tasks', action: 'render_queue')}'"
     end
     
     def edit
@@ -35,17 +51,21 @@ class TasksController < ApplicationController
        task.update(params[:task])
        task.completed_on = Date.today unless task.completed_by.blank?
        task.save
+       flash[:notice] = "Task '#{task.client_name}' updated"
        
        redirect_to(controller: 'tasks', action: 'render_queue')
     end
     
     def destroy
-       Task.find( params['task_id'] ).destroy
+       task = Task.find( params['task_id'] )
+       flash[:notice] = "Task '#{task.client_name}' destroyed"
+       task.destroy
+       
        render nothing: true
     end
     
     def history
-       @task_history = Task.history
+       @task_history = Task.where("completed_on IS NOT NULL AND completed_on > ?", Date.today - 30).order(completed_on: :desc).all
     end
     
     private

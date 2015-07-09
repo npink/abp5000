@@ -3,7 +3,7 @@
 	.modal-content
 		= form_for @task, url: {action: 'update'} do |f|
 			.modal-header
-				%h4.modal-title Edit Task
+				%h4.modal-title Task Details
 			
 			.modal-body
 			
@@ -11,6 +11,6 @@
 				= render "task_fields"	
 				
 			.modal-footer
-				%input.btn.btn-primary{'type' => 'submit'}
+				%input.btn.btn-primary{'type' => 'submit', 'value' => 'Update'}
 				%button.btn.btn-default{'data-dismiss' => 'modal'} Cancel
-				%button.delete_task_button.btn.btn-danger{'data-task-id' => @task.id} Destroy Task
+				%button.delete_task_button.btn.btn-danger{'type' => 'button', 'data-task-id' => @task.id} Destroy
