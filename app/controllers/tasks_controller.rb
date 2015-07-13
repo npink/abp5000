@@ -71,7 +71,8 @@ class TasksController < ApplicationController
     end
     
     def history
-       @task_history = Task.where("completed_on IS NOT NULL AND completed_on > ?", Date.today - 30).order(completed_on: :desc).all
+       @task_history = Task.where("completed_on IS NOT NULL AND completed_on > ?", Date.today - 30).
+          order(completed_on: :desc, completed_by: :asc).all
     end
     
     private
