@@ -1,15 +1,5 @@
 module ApplicationHelper
    
-   def initials_field_tag(task_attribute, task)
-      text_field_tag(task_attribute, task.send(task_attribute), {
-   		'data-task-id' => task.id, 								
-   		'data-attribute' => task_attribute,					
-   		'maxlength' => 2, 												
-   		'size' => 2, 													
-   		'class' => 'initials_field initials_updater'									
-   	})
-   end	
-   
    def render_priority(priority)
       
       if priority == 'L'
@@ -50,10 +40,20 @@ module ApplicationHelper
       end
    end				
    
-   def render_headshot(initials)
+   def render_task_initials_field(task, task_attribute)
+      initials = task.send(task_attribute)
       if ['DP', 'NP', 'KF', 'SS', 'SP', 'PP', 'GP'].include? initials
          image_tag("headshots/#{initials.downcase}.jpeg")
+      else
+         text_field_tag(task_attribute, initials, {
+      		'data-task-id' => task.id, 								
+      		'data-attribute' => task_attribute,					
+      		'maxlength' => 2, 												
+      		'size' => 2, 													
+      		'class' => 'initials_field initials_updater'									
+      	})
       end
+      
    end
    
    def render_duration(duration)

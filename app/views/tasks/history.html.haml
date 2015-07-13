@@ -1,5 +1,5 @@
 %table.table.table-hover.table-bordered.task_table
-	%caption= "Task History - Showing #{@task_history.count} tasks"
+	%caption= "Task History - Showing #{@task_history.count} completed tasks"
 	%br
 	%thead
 		%tr
@@ -9,9 +9,9 @@
 				Size
 			%th
 				Notes
-			%th
+			%th.cell_small
 				Resp.
-			%th
+			%th.cell_small
 				= image_tag('neXt_X.png', width: '25')
 			%th
 				Created
@@ -28,10 +28,6 @@
 				%td= t.client_name
 				%td= render_duration(t.duration)
 				%td= render_summary(t.summary)
-				%td 
-					= render_headshot(t.delegated_to)
-					= t.delegated_to
-				%td
-					= render_headshot(t.completed_by)
-					= t.completed_by
+				%td.cell_small= render_task_initials_field(t, 'delegated_to') 
+				%td.cell_small= render_task_initials_field(t, 'completed_by')
 				%td= t.created_at.strftime("%a, %m-%d")
