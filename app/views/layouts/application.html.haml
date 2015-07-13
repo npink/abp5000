@@ -7,26 +7,28 @@
 		= csrf_meta_tags
 		= favicon_link_tag 'neXt_X.png'
 	%body
-		%nav#top_menu
-			#page_title= image_tag 'neXt_logo.png'
-			.btn-group
-				= link_to "Task Queue", {controller: 'tasks', action: 'render_queue'}, class: 'btn'
-				= link_to "Task History", {controller: 'tasks', action: 'history'}, class: 'btn'
-				= link_to "News", {controller: 'comments', action: 'list'}, class: 'btn'
-			.btn-group
-				%button#add_task_button.btn	Create Task
+		#page
+			%nav#top_menu
+				#page_title= image_tag 'neXt_logo.png'
+				.btn-group
+					= link_to "Task Queue", {controller: 'tasks', action: 'render_queue'}, class: 'btn'
+					= link_to "Task History", {controller: 'tasks', action: 'history'}, class: 'btn'
+					= link_to "News", {controller: 'comments', action: 'list'}, class: 'btn'
+				.btn-group
+					%button#add_task_button.btn	Create Task
 
-		#content
-			- if flash[:notice]
-				.alert.alert-success{'role' => "alert"}= flash[:notice]
-			- unless @latest_news.blank?
-				.alert.alert-warning{'role' => "alert"}
-					- @latest_news.each do |n|
-						.comment
-							.comment_timestamp.banner_timestamp= n.created_at.strftime('%l:%M %p')
-							.banner_comment_body= n.body
-			= yield
+			#content
+				- if flash[:notice]
+					.alert.alert-success{'role' => "alert"}= flash[:notice]
+				- unless @latest_news.blank?
+					.alert.alert-warning{'role' => "alert"}
+						- @latest_news.each do |n|
+							.comment
+								.comment_timestamp.banner_timestamp= n.created_at.strftime('%l:%M %p')
+								.banner_comment_body= n.body
+				= yield
 			
-		= render "tasks/create"
 		
-		#footer Version 3.1, Last updated July 9, 2015
+		
+			#footer Version 3.1, Last updated July 9, 2015
+		= render "tasks/create"

@@ -23,9 +23,12 @@ function validate_task(task_form) {
 	}
 }
 
+function load_url() {
+	location.load(url);
+}
+
 $(function() {
-	/* test */
-	//alert(location);
+	/* test code here */
 	
 	$("#add_task_button").click( function() {
 		$('#add_task_form').modal('show');
@@ -47,12 +50,23 @@ $(function() {
 				attribute: $(this).data("attribute"),
 				value: $(this).val()
 		   };
-		
-			$.post("initial", task_object , function(url) {
-				location.load(url);
-			});
+			
+			if ( $(this).data("attribute") === 'completed_by') {
+				$("#page").effect({
+					effect: "explode", 
+					duration: 2100,
+					pieces: 30,
+					easing: 'easeInExpo',
+					complete: function() {
+						$.post("initial", task_object)
+					}
+				});
+			}
+			else {
+				$.post("initial", task_object)
+			}
+			
 		}
-
 	});
 	
 	
@@ -77,6 +91,15 @@ $(function() {
 			
 			});
 		}
+	});
+	
+	$(".alert").click(function() {
+		$(".alert-warning").effect({
+			effect: "explode", 
+			duration: 4000,
+			pieces: 25
+			
+		});
 	});
 	
 });
