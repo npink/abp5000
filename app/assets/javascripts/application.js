@@ -43,6 +43,7 @@ $(function() {
 		$(this).val("");
 	});
 	
+	// Update task when 'enter' key is pressed
 	$(".initials_updater").bind('keypress', function(e) {
 		if (e.keyCode == 13) {
 			var task_object = { 
@@ -50,22 +51,8 @@ $(function() {
 				attribute: $(this).data("attribute"),
 				value: $(this).val()
 		   };
-			
-			if ( $(this).data("attribute") === 'completed_by') {
-				$("#page").effect({
-					effect: "explode", 
-					duration: 2100,
-					pieces: 30,
-					easing: 'easeInExpo',
-					complete: function() {
-						$.post("initial", task_object)
-					}
-				});
-			}
-			else {
-				$.post("initial", task_object)
-			}
-			
+	
+			$.post("initial", task_object);
 		}
 	});
 	
@@ -93,3 +80,17 @@ $(function() {
 	});
 	
 });
+
+/*
+	Explosion animation, use for something else cool!
+				$("#page").effect({
+					effect: "explode", 
+					duration: 2100,
+					pieces: 30,
+					easing: 'easeInExpo',
+					complete: function() {
+						$.post("initial", task_object)
+					}
+				});
+
+*/
