@@ -19,6 +19,10 @@
 		- completed_on = Date.today
 		%tr.date_row
 			%th{'colspan' => '6'} Today
+			- if @task_history.first.completed_on != completed_on
+				%tr.date-row
+					%td 
+						%b No tasks done today, get to work!
 		- @task_history.each do |t|
 			- if completed_on != t.completed_on.to_date
 				- completed_on = t.completed_on.to_date
