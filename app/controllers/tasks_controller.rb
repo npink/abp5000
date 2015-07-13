@@ -2,10 +2,10 @@ class TasksController < ApplicationController
    
     def render_queue
        # First find orders that are due within 2 days of today
-       @tasks = Task.where("LENGTH(completed_by) <> 2 AND iced = ? AND due_date <= ?", false, WorkDate.get(2) ).
+       @tasks = Task.where("completed_on IS NULL AND iced = ? AND due_date <= ?", false, WorkDate.get(2) ).
           order(:due_date).all
        # Second, sort remaining orders by creation date, oldest to newest
-       @tasks += Task.where("LENGTH(completed_by) <> 2 AND iced = ? AND (due_date IS NULL OR due_date > ?)", false, WorkDate.get(2) ).
+       @tasks += Task.where("completed_on IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", false, WorkDate.get(2) ).
           order(created_at: :asc).all
        # Last, get frozen orders
        @tasks += Task.where("completed_on IS NULL AND iced = ?", true)

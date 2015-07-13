@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'comments' => 'comments#list'
     post 'comments' => 'comments#create'
     
+    get 'playgolf20142014/normalize_attributes' => 'admin#normalize_attributes'
     get 'playgolf20142014/test' => 'admin#test'
     get 'playgolf20142014/fixtures' => 'admin#fixtures'
     get 'playgolf20142014/reset' => 'admin#reset'

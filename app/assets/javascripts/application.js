@@ -69,7 +69,6 @@ $(function() {
 		}
 	});
 	
-	
 	$(".task_row").click(function(event) {
 		if ( !$(event.target).hasClass('initials_field') ) {
 			$.get( $(this).data("task-id") + "/edit", function(data) {
@@ -91,15 +90,6 @@ $(function() {
 			
 			});
 		}
-	});
-	
-	$(".alert").click(function() {
-		$(".alert-warning").effect({
-			effect: "explode", 
-			duration: 4000,
-			pieces: 25
-			
-		});
 	});
 	
 });

@@ -1,5 +1,7 @@
 class Task < ActiveRecord::Base
    
+   normalize_blank_values
+   
    def priority
       if iced?
          'F'
