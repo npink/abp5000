@@ -5,13 +5,16 @@
 		= stylesheet_link_tag    'application', media: 'all'
 		= javascript_include_tag 'application'
 		= csrf_meta_tags
+		= favicon_link_tag 'neXt_X.png'
 	%body
-		.hero-unit
-			%h1 neXt
+		#login_page
+			%h1= image_tag('neXt_login_banner.png')
 			%br
+			- if @error
+				.alert.alert-danger{'role' => "alert"}= @error
 			= form_tag("/users/login", method: "post") do
 				%fieldset
-					= text_field_tag :initials, nil, placeholder: "Your Initials"
+					= text_field_tag :initials, 'staff'
 					%br
 					= password_field_tag :password, nil, placeholder: "Password"
 					%br

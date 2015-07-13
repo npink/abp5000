@@ -23,6 +23,7 @@ class UsersController < ApplicationController
             session[:initials] = params[:initials]
             redirect_to :controller => 'tasks', :action => 'render_queue'
         else
+            @error = "Incorrect password"
             render 'login_form'
         end
     end
