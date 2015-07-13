@@ -9,8 +9,6 @@ class TasksController < ApplicationController
           order(created_at: :asc).all
        # Last, get frozen orders
        @tasks += Task.where("completed_on IS NULL AND iced = ?", true)
-       
-       @latest_news = Comment.order(created_at: :desc).first.body
     end
     
     def create

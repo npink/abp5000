@@ -2,11 +2,18 @@
 
 = form_for @comment, url: {controller: 'comments', action: 'create'} do |f|
 	= f.text_field :body, {size: 100, maxlength: 100, id: 'comment_text_field'}
-	%input.btn.btn-primary{'type' => 'submit', 'value' => 'Add'}
+	%input.btn.btn-primary{'type' => 'submit', 'value' => 'Announce!'}
 
-%table
+%table#comments
 	%tbody
+		- creation_date = Date.today
+		%tr.comment_row
+			%td.comment_date_header{'colspan' => '2'} Today
 		- @comments.each do |c|
+			- if c.created_at.to_date < creation_date
+				- creation_date = c.created_at.to_date
+				%tr
+					%td.comment_date_header{'colspan' => '2'}= creation_date.strftime("%A, %m-%d")
 			%tr.comment_row
 				%td.comment_body= c.body
 				%td.comment_timestamp= c.created_at.strftime("%l:%M %p, %a")

@@ -46,8 +46,13 @@ h2 {
 }
 
 .alert {
-	width: 100%;
 	padding: 10px;
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
+.alert-warning {
+	background-color: #FFFCAF;
+	font-family: "Lucida Console", Monaco, monospace;
 }
 
 .modal-body {
@@ -121,6 +126,31 @@ caption, h2 {
   background-color: #eee !important;
 }
 
+.banner_timestamp {
+	display: inline-block;
+	width: 65px;
+}
+
+.banner_comment_body {
+	display: inline-block;
+}
+
+#comments {
+	border: 1px solid #CB1;
+	color: #c09853;
+	background-color: #FFFCAF;
+	font-family: "Lucida Console", Monaco, monospace;
+	margin-bottom: 25px;
+}
+#comments td {
+	padding: 15px;
+}
+
+.comment_date_header {
+	background-color: #CB1;
+	color: #FFFCAF;
+}
+
 #comment_text_field {
 	width: inherit;
 }
@@ -129,12 +159,8 @@ caption, h2 {
 	padding-right: 35px;
 }
 
-.comment_row > td {
- padding-bottom: 15px;
-}
-
 .comment_timestamp {
-	font-size: 60%;
+	font-size: 75%;
 	color: #999999;
 }
 

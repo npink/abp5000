@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_latest_news
-     comment = Comment.order(created_at: :desc).first
-     comment.created_at + 2.hours > Time.now ? @latest_news = comment.body : @latest_news
+     @latest_news = Comment.where('created_at > ?', Time.now - 12.hours).order(created_at: :desc).limit(3)
+    
   end
 end
