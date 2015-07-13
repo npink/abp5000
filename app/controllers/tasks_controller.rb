@@ -46,6 +46,14 @@ class TasksController < ApplicationController
     def update
        format_parameters
        task = Task.find( params[:id] )
+       new_due_date = Date.parse( params[:task][:due_date] ) rescue nil
+
+       if !new_due_date.blank? and (task.due_date.blank? or new_due_date < task.due_date)
+          Comment.create(
+          body: "UPDATE: Task '#{task.client_name}' now due on #{new_due_date.strftime("%a, %m-%d")}"
+          )
+       end
+       
        task.update(params[:task])
        task.completed_on = Date.today unless task.completed_by.blank?
        task.save
