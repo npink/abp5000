@@ -49,9 +49,10 @@ class TasksController < ApplicationController
        new_due_date = Date.parse( params[:task][:due_date] ) rescue nil
 
        if !new_due_date.blank? and (task.due_date.blank? or new_due_date < task.due_date)
-          Comment.create(
-          body: "UPDATE: Task '#{task.client_name}' now due on #{new_due_date.strftime("%a, %m-%d")}"
-          )
+          comment = "UPDATE: Task '#{task.client_name}"
+          comment += ': ' + task.summary[0,20] + "' " unless task.summary.blank?
+          comment += "due date changed to #{new_due_date.strftime('%a, %m-%d')}"
+          Comment.create(body: comment)
        end
        
        task.update(params[:task])
