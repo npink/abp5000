@@ -57,7 +57,7 @@ $(function() {
 	});
 	
 	$(".task_row").click(function(event) {
-		if ( !$(event.target).hasClass('initials_field') ) {
+		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('headshot') ) {
 			$.get( $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#edit_task_form').html(data);
@@ -77,6 +77,10 @@ $(function() {
 			
 			});
 		}
+	});
+	
+	$(".headshot").click(function() {
+		location.assign(location.pathname + "?user=" + $(this).attr("alt") );
 	});
 	
 });

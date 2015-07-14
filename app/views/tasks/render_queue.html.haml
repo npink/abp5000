@@ -1,5 +1,10 @@
 %table.queue_table.table.table-hover.table-bordered.task_table
-	%caption= "Task Queue - Showing #{@tasks.count} tasks"
+	%caption
+		- if @user_name
+			= image_tag("headshots/#{@initials.downcase}.jpeg")
+			= "#{@user_name}'s Queue"
+		- else
+			= "Task Queue - Showing #{@tasks.count} tasks"
 	%thead
 		%tr
 			%th.cell_large
@@ -10,8 +15,9 @@
 				Size
 			%th.cell_large
 				Notes
-			%th.cell_small
-				Respon.
+			- unless @user_name
+				%th.cell_small
+					Respon.
 			%th.cell_small
 				= image_tag('neXt_X.png', width: '25')
 			%th.cell_medium
@@ -25,9 +31,41 @@
 				%td.cell_large= t.client_name
 				%td.cell_small= render_priority(t.priority)
 				%td.cell_small= render_duration(t.duration)
-
 				%td.cell_large= render_summary(t.summary)
-				%td.cell_small= render_task_initials_field(t, 'delegated_to')
+				- unless @user_name
+					%td.cell_small= render_task_initials_field(t, 'delegated_to')
 				%td.cell_small= render_task_initials_field(t, 'completed_by')
 				%td.cell_medium= render_due_date(t.due_date)
 				%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
+			
+- if @user_name	
+	%table.table.table-hover.table-bordered.task_table
+		%caption
+			- if @tasks_done_today.blank?
+				= "Nothing Completed Today - Great Disappointment!"
+			- else
+				= "#{@tasks_done_today.count} Task Completed Today - Great Success!"
+		%br
+		%thead
+			%tr
+				%th
+					Client/Task Name
+				%th
+					Size
+				%th
+					Notes
+				%th.cell_small
+					Resp.
+				%th.cell_small
+					= image_tag('neXt_X.png', width: '25')
+				%th
+					Created
+		%tbody
+			- @tasks_done_today.each do |t|
+				%tr.task_row{'data-task-id' => t.id}
+					%td= t.client_name
+					%td= render_duration(t.duration)
+					%td= render_summary(t.summary)
+					%td.cell_small= render_task_initials_field(t, 'delegated_to') 
+					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td= t.created_at.strftime("%a, %m-%d")

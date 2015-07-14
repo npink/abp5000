@@ -1,14 +1,23 @@
 class TasksController < ApplicationController
    
     def render_queue
-       # First find orders that are due within 2 days of today
-       @tasks = Task.where("completed_on IS NULL AND iced = ? AND due_date <= ?", false, WorkDate.get(2) ).
-          order(:due_date).all
-       # Second, sort remaining orders by creation date, oldest to newest
-       @tasks += Task.where("completed_on IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", false, WorkDate.get(2) ).
-          order(created_at: :asc).all
-       # Last, get frozen orders
-       @tasks += Task.where("completed_on IS NULL AND iced = ?", true)
+       
+       if params[:user].blank?
+          # First find orders that are due within 2 days of today
+          @tasks = Task.where("completed_on IS NULL AND iced = ? AND due_date <= ?", false, WorkDate.get(2) ).
+             order(:due_date).all
+          # Second, sort remaining orders by creation date, oldest to newest
+          @tasks += Task.where("completed_on IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", false, WorkDate.get(2) ).
+             order(created_at: :asc).all
+          # Last, get frozen orders
+          @tasks += Task.where("completed_on IS NULL AND iced = ?", true)
+       else
+          @initials = params[:user].upcase
+          @user_name = User.get_full_name(@initials)
+          @tasks = Task.where("completed_on IS NULL AND delegated_to = ?", @initials)
+          @tasks_done_today = Task.where("completed_on IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
+             @initials, @initials, Date.today)
+       end
     end
     
     def create
@@ -17,7 +26,7 @@ class TasksController < ApplicationController
        
        flash[:notice] = "Task '#{params[:task][:client_name]}' created"
        
-       redirect_to(controller: 'tasks', action: 'render_queue')
+       redirect_to(request.referer)
     end
     
     def initial
@@ -34,7 +43,7 @@ class TasksController < ApplicationController
        
        flash.keep(:notice)
        
-       render js: "window.location = '#{url_for(controller: 'tasks', action: 'render_queue')}'"
+       render js: "location.assign('#{request.referer}')"
     end
     
     def edit
@@ -60,7 +69,7 @@ class TasksController < ApplicationController
        task.save
        flash[:notice] = "Task '#{task.client_name}' updated"
        
-       redirect_to(controller: 'tasks', action: 'render_queue')
+       redirect_to(request.referer)
     end
     
     def destroy
@@ -68,7 +77,7 @@ class TasksController < ApplicationController
        flash[:notice] = "Task '#{task.client_name}' destroyed"
        task.destroy
        
-       render nothing: true
+       render js: "location.assign('#{request.referer}')"
     end
     
     def history
