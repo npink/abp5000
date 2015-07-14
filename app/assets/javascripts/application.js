@@ -80,7 +80,15 @@ $(function() {
 	});
 	
 	$(".headshot").click(function() {
-		location.assign(location.pathname + "?user=" + $(this).attr("alt") );
+		$(this).effect({
+			effect: "puff", 
+			percent: 2000,
+			duration: 1500,
+			complete: function() {
+				location.assign(location.pathname + "?user=" + $(this).attr("alt") );
+			}
+		});
+		//
 	});
 	
 });

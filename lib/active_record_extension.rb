@@ -2,7 +2,6 @@ module ActiveRecordExtension
   extend ActiveSupport::Concern
 
   def normalize_blank_values
-     puts "test"
     attributes.each do |column, value|
       self[column].present? || self[column] == false || self[column] = nil
     end

@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-   
+   before_validation :normalize_delegated_to_attribute
    normalize_blank_values
    
    def priority
@@ -14,6 +14,10 @@ class Task < ActiveRecord::Base
       end
    end
    
+   def complete?
+      completed_on.present? ? true : false
+   end
+   
    class << self
       
       def minutes_to_complete_options
@@ -26,6 +30,20 @@ class Task < ActiveRecord::Base
          }
       end
       
+   end
+   
+   private
+   
+   def normalize_delegated_to_attribute
+      5.times do
+         puts 'code not run'
+      end
+      if complete? and delegated_to.blank?
+         puts self
+         puts
+         puts self
+         self[:delegated_to] = self[:completed_by]
+      end
    end
    
 end
