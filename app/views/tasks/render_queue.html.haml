@@ -47,7 +47,7 @@
 	%table.table.table-hover.table-bordered.task_table
 		%caption
 			- if @tasks_done_today.blank?
-				= "Task Completed Today"
+				= "Tasks Completed Today"
 			- else
 				= "#{@tasks_done_today.count} Task Completed Today - Great Success!"
 		%br
