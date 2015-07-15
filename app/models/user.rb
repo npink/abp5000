@@ -2,14 +2,16 @@ class User < ActiveRecord::Base
    
    class << self
       @@users = {
-         'NP' => 'Nick',
+
          'SS' => 'Sean',
-         'PP' => 'Paul',
-         'DP' => 'Danny',
          'KF' => 'Nicolas Cage',
-         'SP' => 'Steve',
-         'JT' => 'Jane',
-         'GP' => 'Gail'
+         'DP' => 'Danny',
+         'NP' => 'Nick',
+         'PP' => 'Paul',
+         'GP' => 'Gail',
+         'SP' => 'Steve'
+         #'JT' => 'Jane'
+         
       }
       
       def User.users

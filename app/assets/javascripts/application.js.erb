@@ -15,6 +15,8 @@
 //= require bootstrap.min
 //= require_tree .
 	
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+	
 function validate_task(task_form) {
 	var form = $(task_form);
 	
@@ -57,7 +59,7 @@ $(function() {
 	});
 	
 	$(".task_row").click(function(event) {
-		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('headshot') ) {
+		if ( !$(event.target).hasClass('initials_field') ) {
 			$.get( $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#edit_task_form').html(data);
@@ -79,30 +81,25 @@ $(function() {
 		}
 	});
 	
-	$(".headshot").click(function() {
-		$(this).effect({
-			effect: "puff", 
-			percent: 2000,
-			duration: 1500,
-			complete: function() {
-				location.assign(location.pathname + "?user=" + $(this).attr("alt") );
-			}
-		});
-		//
+	$(".headshot_filter").click(function() {
+		// TODO: This erb prevents file from being cached
+		var url = '<%= url_for controller: :tasks, action: :render_queue, only_path: :true %>' + "?user=" + $(this).attr("alt");
+		location.assign(url);
 	});
-	
+
 });
 
 /*
-	Explosion animation, use for something else cool!
-				$("#page").effect({
-					effect: "explode", 
-					duration: 2100,
-					pieces: 30,
-					easing: 'easeInExpo',
-					complete: function() {
-						$.post("initial", task_object)
-					}
-				});
+Figure out where to use this cool effect!
 
+$(".headshot").click(function() {
+	$(this).effect({
+		effect: "puff", 
+		percent: 2000,
+		duration: 1500,
+		complete: function() {
+			location.assign(location.pathname + "?user=" + $(this).attr("alt") );
+		}
+	});
+});
 */
