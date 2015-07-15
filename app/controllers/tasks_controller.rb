@@ -12,7 +12,7 @@ class TasksController < ApplicationController
              false, WorkDate.get(2) ).
              order(created_at: :asc).all
           # Last, get frozen orders
-          @tasks += Task.where("completed_on IS NULL AND iced = ?", true)
+          @tasks += Task.where("completed_on IS NULL AND delegated_to IS NULL AND iced = ?", true)
        else
           @initials = params[:user].upcase
           @user_name = User.get_full_name(@initials)
