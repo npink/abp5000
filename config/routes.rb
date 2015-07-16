@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     
     post 'users/login' => 'users#login'
     
+    get 'tasks/new' => 'tasks#new'
     post 'tasks' => 'tasks#create'
     get 'tasks/render_queue' => 'tasks#render_queue'
     post 'tasks/initial' => 'tasks#initial'

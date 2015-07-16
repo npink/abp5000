@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
    
+     before_filter :get_latest_news
+   
     def render_queue
        
        if params[:user].blank?
@@ -24,6 +26,11 @@ class TasksController < ApplicationController
           @tasks_done_today = Task.where( "completed_on IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
              @initials, @initials, Date.today ).order(:client_name)
        end
+    end
+    
+    def new
+       @task = Task.new
+       render :layout => false
     end
     
     def create
@@ -93,6 +100,11 @@ class TasksController < ApplicationController
     end
     
     private
+    
+    def get_latest_news
+       @latest_news = Comment.where('created_at > ?', Time.now - 12.hours).order(created_at: :desc)
+    
+    end
     
     def format_parameters
        params[:task][:completed_by] = params[:task][:completed_by].upcase rescue nil

@@ -1,0 +1,13 @@
+.modal-dialog
+	.modal-content
+		= form_for @task, url: {controller: 'tasks', action: 'create'} do |f|
+			.modal-header
+				%h4.modal-title Create Task
+			
+			.modal-body
+				- @f = f
+				= render 'tasks/task_fields'
+				
+			.modal-footer
+				%input.btn.btn-primary{'type' => 'submit', 'value' => 'Create'}
+				%button.btn.btn-default{'data-dismiss' => 'modal'} Cancel

@@ -33,10 +33,15 @@ $(function() {
 	/* test code here */
 	
 	$("#add_task_button").click( function() {
-		$('#add_task_form').modal('show');
-		
-		$('.new_task').submit( function(event) {
-			validate_task(this);
+		$.get('/tasks/new', function(data) {
+			$('#task_form').html(data);
+			$('#task_form').on('shown', function () {
+				$("#task_client_name").focus();
+			 });
+			$('#task_form').modal('show');
+			$('.new_task').submit( function(event) {
+				validate_task(this);
+			});
 		});
 		
 	});
@@ -62,8 +67,8 @@ $(function() {
 		if ( !$(event.target).hasClass('initials_field') ) {
 			$.get( $(this).data("task-id") + "/edit", function(data) {
 			
-				$('#edit_task_form').html(data);
-				$('#edit_task_form').modal('show');
+				$('#task_form').html(data);
+				$('#task_form').modal('show');
 			
 				$('.edit_task').submit( function(e) {
 					validate_task(this);
@@ -76,6 +81,11 @@ $(function() {
 						});
 					}
 				});
+				
+				$('#task_form').on('shown', function () {
+					//alert('foo');
+					$("#task_client_name").focus();
+				 });
 			
 			});
 		}
