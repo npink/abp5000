@@ -2,6 +2,25 @@ class AdminController < ApplicationController
    layout false
    skip_before_action :require_login
    
+   
+   def login_form
+   end
+   
+   def login
+        if params[:password] == Rails.application.config.password
+           session[:logged_in] = true
+           redirect_to :controller => 'tasks', :action => 'render_queue'
+        else
+           @error = "Incorrect password"
+           render 'login_form'
+       end
+   end
+   
+   def logout
+      session[:logged_in] = nil
+      redirect_to :action => 'login_form'
+   end
+   
    def normalize_attributes
       Task.all.each do |t|
          puts t.client_name

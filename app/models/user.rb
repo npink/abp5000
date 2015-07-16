@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
       @@users = {
 
          'SS' => 'Sean',
-         'KF' => 'Nicolas Cage',
+         'KF' => 'Konner',
          'DP' => 'Danny',
          'NP' => 'Nick',
          'PP' => 'Paul',

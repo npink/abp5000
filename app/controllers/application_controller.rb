@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
   
   def require_login
-      redirect_to(controller: 'users', action: 'login_form') if session[:initials] == nil
+      redirect_to(controller: 'admin', action: 'login_form') if session[:logged_in].blank?
   end
   
 end

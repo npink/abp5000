@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-    root 'users#login_form'
-    
-    post 'users/login' => 'users#login'
+   
+    get 'login' => 'admin#login_form'
+    post 'login' => 'admin#login'
+    get 'logout' => 'admin#logout'
     
     get 'tasks/new' => 'tasks#new'
     post 'tasks' => 'tasks#create'
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
     get 'playgolf20142014/test' => 'admin#test'
     get 'playgolf20142014/fixtures' => 'admin#fixtures'
     get 'playgolf20142014/reset' => 'admin#reset'
+    
+    root 'admin#login_form'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
