@@ -1,7 +1,7 @@
 %table.queue_table.table.table-hover.table-bordered.task_table
 	%caption
 		- if @user_name
-			= image_tag("headshots/#{@initials.downcase}.jpeg")
+			= image_tag("headshots/#{@initials.downcase}.jpeg", class: 'headshot_filter img-circle')
 			= "#{@user_name}'s Queue"
 		- else
 			= "Task Queue - Showing #{@tasks.count} undelegated tasks"
