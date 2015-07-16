@@ -20,6 +20,20 @@ class Task < ActiveRecord::Base
    
    class << self
       
+      def active_staff
+         staff = Set.new
+         tasks = Task.select(:delegated_to, :completed_by).
+            where("iced = ? AND (( delegated_to IS NOT NULL AND completed_by IS NULL) OR completed_on = ?)", false, Date.today).
+            group(:delegated_to, :completed_by)
+            
+         tasks.each do |u|
+            staff.add(u.delegated_to.upcase) rescue nil
+            staff.add(u.completed_by.upcase) rescue nil
+         end
+         
+         staff
+      end
+      
       def minutes_to_complete_options
          {
             '< 30 mins'    => '30',

@@ -17,8 +17,7 @@
 				.btn-group
 					%button#add_task_button.btn	Create Task
 				#headshot_filters.btn-group
-					- User.users.keys.each do |initials|
-						- next if ['PP', 'GP'].include? initials
+					- Task.active_staff.each do |initials|
 						= image_tag("headshots/#{initials.downcase}.jpeg", class: 'headshot_filter img-circle enlargeable')
 
 			#content

@@ -13,9 +13,15 @@ class AdminController < ApplicationController
    end
    
    def test
-      WorkDate.get(3)
-      
-      render :nothing => true
+      @active_users = Set.new
+      @users = Task.select(:delegated_to, :completed_by).
+         where("iced = ? AND (( delegated_to IS NOT NULL AND completed_by IS NULL) OR completed_on = ?)", false, Date.today).
+         group(:delegated_to, :completed_by)
+         @users.each do |u|
+            @active_users.add(u.delegated_to.upcase) rescue nil
+            @active_users.add(u.completed_by.upcase) rescue nil
+         end
+         @active_users
    end
    
    def fixtures
