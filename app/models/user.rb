@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
          'NP' => 'Nick',
          'PP' => 'Paul',
          'GP' => 'Gail',
-         'SP' => 'Steve'
-         #'JT' => 'Jane'
+         'SP' => 'Steve',
+         'JT' => 'Jane'
          
       }
       
