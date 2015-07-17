@@ -101,6 +101,15 @@ class TasksController < ApplicationController
           order(completed_on: :desc, completed_by: :asc).all
     end
     
+    def received_by
+       task = Task.find(params[:task_id])
+       task.update( :received_by => params[:received_by] )
+       flash[:notice] = "Task '#{task.client_name}' updated"
+       flash.keep(:notice)
+       
+       render js: "location.assign('#{request.referer}')"
+    end
+    
     private
     
     def get_latest_news

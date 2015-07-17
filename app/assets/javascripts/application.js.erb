@@ -46,10 +46,6 @@ $(function() {
 		
 	});
 	
-	$(".initials_field").click(function() {
-		$(this).val("");
-	});
-	
 	// Update task when 'enter' key is pressed
 	$(".initials_updater").bind('keypress', function(e) {
 		if (e.keyCode == 13) {
@@ -64,7 +60,7 @@ $(function() {
 	});
 	
 	$(".task_row").click(function(event) {
-		if ( !$(event.target).hasClass('initials_field') ) {
+		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('received_by_updater')  ) {
 			$.get( $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#task_form').html(data);
@@ -95,6 +91,17 @@ $(function() {
 		// TODO: This erb prevents file from being cached
 		var url = '<%= url_for controller: :tasks, action: :render_queue, only_path: :true %>' + "?user=" + $(this).attr("alt");
 		location.assign(url);
+	});
+	
+	$(".received_by_updater").bind('keypress', function(e) {
+		if (e.keyCode == 13) {
+			var task_object = { 
+				task_id: $(this).data("task-id"),
+				received_by: $(this).val()
+		   };
+	
+			$.post("received_by", task_object);
+		}
 	});
 
 });
