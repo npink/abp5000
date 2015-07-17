@@ -3,10 +3,8 @@ class Task < ActiveRecord::Base
    normalize_blank_values
    
    def priority
-      if iced?
-         'F'
-      elsif due_date.blank? or due_date > WorkDate.get(2)
-         'L'
+      if due_date.blank? or due_date > WorkDate.get(2)
+         iced? ? 'F' : 'L'
       elsif due_date > Date.today
          'M'
       else
