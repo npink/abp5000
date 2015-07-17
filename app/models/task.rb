@@ -2,6 +2,10 @@ class Task < ActiveRecord::Base
    before_validation :normalize_delegated_to_attribute
    normalize_blank_values
    
+   def iced?
+      iced ? true : false
+   end
+   
    def priority
       if due_date.blank? or due_date > WorkDate.get(2)
          iced? ? 'F' : 'L'
