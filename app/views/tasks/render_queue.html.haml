@@ -18,8 +18,9 @@
 			- unless @user_name
 				%th.cell_small
 					Respon.
-			%th.cell_small
-				= image_tag('neXt_X.png', width: '25')
+			- if @user_name
+				%th.cell_small
+					= image_tag('neXt_X.png', width: '25')
 			%th.cell_medium
 				Due Date
 			%th.cell_medium
@@ -39,7 +40,8 @@
 					%td.cell_large= render_summary(t.summary)
 					- unless @user_name
 						%td.cell_small= render_task_initials_field(t, 'delegated_to')
-					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					- if @user_name
+						%td.cell_small= render_task_initials_field(t, 'completed_by')
 					%td.cell_medium= render_due_date(t.due_date)
 					%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
 			
