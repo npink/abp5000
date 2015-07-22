@@ -43,7 +43,7 @@ module ApplicationHelper
    def render_task_initials_field(task, task_attribute)
       initials = task.send(task_attribute)
       if User.users.keys.include? initials
-         image_tag("headshots/#{initials.downcase}.jpeg", class: 'headshot img-circle')
+         image_tag("avatars/#{initials.downcase}.jpeg", class: 'headshot img-circle')
       else
          text_field_tag(task_attribute, initials, {
       		'data-task-id' => task.id, 								
