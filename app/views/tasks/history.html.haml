@@ -18,23 +18,24 @@
 			%th
 				Created
 	%tbody
-		- completed_on = Date.today
-		%tr.date_row
-			%th{'colspan' => '7'} Today
-			- if @task_history.first.completed_on != completed_on
-				%tr.date-row
-					%td 
-						%b No tasks done today, get to work!
-		- @task_history.each do |t|
-			- if completed_on != t.completed_on.to_date
-				- completed_on = t.completed_on.to_date
-				%tr.date_row
-					%th{'colspan' => '7'}= completed_on.strftime("%a, %m-%d")
-			%tr.task_row{'data-task-id' => t.id}
-				%td= t.client_name
-				%td= render_summary(t.summary)
-				%td= text_field_tag(:received_by, t.received_by, {'size' => '15', 'data-task-id' => t.id, 'class' => 'received_by_updater'})
-				%td.cell_small= render_task_initials_field(t, 'delegated_to') 
-				%td.cell_small= render_task_initials_field(t, 'completed_by')
-				%td= render_duration(t.duration)
-				%td= t.created_at.strftime("%a, %m-%d")
+		- unless @task_history.size == 0
+			- completed_on = Date.today
+			%tr.date_row
+				%th{'colspan' => '7'} Today
+				- if @task_history.first.completed_on != completed_on
+					%tr.date-row
+						%td 
+							%b No tasks done today, get to work!
+			- @task_history.each do |t|
+				- if completed_on != t.completed_on.to_date
+					- completed_on = t.completed_on.to_date
+					%tr.date_row
+						%th{'colspan' => '7'}= completed_on.strftime("%a, %m-%d")
+				%tr.task_row{'data-task-id' => t.id}
+					%td= t.client_name
+					%td= render_summary(t.summary)
+					%td= text_field_tag(:received_by, t.received_by, {'size' => '15', 'data-task-id' => t.id, 'class' => 'received_by_updater'})
+					%td.cell_small= render_task_initials_field(t, 'delegated_to') 
+					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td= render_duration(t.duration)
+					%td= t.created_at.strftime("%a, %m-%d")
