@@ -7,27 +7,36 @@ class TasksController < ApplicationController
        
        if params[:user].blank?
           # First find orders that are due within 2 days of today
-          @tasks = Task.where("completed_on IS NULL AND due_date <= ? AND delegated_to IS NULL", WorkDate.get(2) ).
+          @tasks = Task.where("completed_by IS NULL AND due_date <= ? AND delegated_to IS NULL", WorkDate.get(2) ).
              order(:due_date).all
           # Second, sort remaining orders by creation date, oldest to newest
-          @tasks += Task.where("completed_on IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?) AND delegated_to IS NULL", 
+          @tasks += Task.where("completed_by IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?) AND delegated_to IS NULL", 
              false, WorkDate.get(2) ).
              order(created_at: :asc).all
           # Last, get frozen orders not due within 2 days
-          @tasks += Task.where( "completed_on IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", true, WorkDate.get(2) )
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", true, WorkDate.get(2) )
        else
           @initials = params[:user].upcase
           @user_name = User.get_full_name(@initials)
           
-          @tasks = Task.where( "completed_on IS NULL AND delegated_to = ? AND due_date <= ?", @initials, WorkDate.get(2) ).
+          @tasks = Task.where( "completed_by IS NULL AND delegated_to = ? AND due_date <= ?", @initials, WorkDate.get(2) ).
              order(:due_date)
-          @tasks += Task.where( "completed_on IS NULL AND delegated_to = ? AND (due_date IS NULL OR due_date > ?) AND iced = ?", @initials, WorkDate.get(2), false ).
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND (due_date IS NULL OR due_date > ?) AND iced = ?", @initials, WorkDate.get(2), false ).
              order(created_at: :asc)
-          @tasks += Task.where( "completed_on IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR due_date > ?)", @initials, true, WorkDate.get(2) )
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR due_date > ?)", @initials, true, WorkDate.get(2) )
              
-          @tasks_done_today = Task.where( "completed_on IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
+          @tasks_done_today = Task.where( "completed_by IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
              @initials, @initials, Date.today ).order(:client_name)
        end
+    end
+    
+    def history
+       @task_history = Task.where("completed_by IS NOT NULL AND completed_on > ?", Date.today - 30).
+          order(completed_on: :desc, completed_by: :asc).all
+    end
+    
+    def all
+       @tasks = Task.order('LOWER(client_name)').all
     end
     
     def new
@@ -81,9 +90,10 @@ class TasksController < ApplicationController
        end
        task.update(params[:task])
        
-       unless task.completed_by.blank?
+       if task.completed_by.blank?
+          task.completed_on = nil
+       else
           task.completed_on = Date.today 
-          task.iced = false
        end
        
        task.save
@@ -97,15 +107,6 @@ class TasksController < ApplicationController
        task.destroy
        
        render js: "location.assign('#{request.referer}')"
-    end
-    
-    def history
-       @task_history = Task.where("completed_on IS NOT NULL AND completed_on > ?", Date.today - 30).
-          order(completed_on: :desc, completed_by: :asc).all
-    end
-    
-    def all
-       @tasks = Task.order('LOWER(client_name)').all
     end
     
     def received_by
