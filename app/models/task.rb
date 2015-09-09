@@ -1,5 +1,7 @@
 class Task < ActiveRecord::Base
    before_validation :normalize_delegated_to_attribute
+   before_save :unfreeze_completed_tasks
+   
    normalize_blank_values
    
    def iced?
@@ -51,15 +53,14 @@ class Task < ActiveRecord::Base
    private
    
    def normalize_delegated_to_attribute
-      5.times do
-         puts 'code not run'
-      end
       if complete? and delegated_to.blank?
-         puts self
-         puts
-         puts self
          self[:delegated_to] = self[:completed_by]
       end
+   end
+   
+   def unfreeze_completed_tasks
+      self[:iced] = false if self[:completed_by].present?
+      true
    end
    
 end
