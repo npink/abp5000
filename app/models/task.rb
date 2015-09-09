@@ -27,7 +27,7 @@ class Task < ActiveRecord::Base
       def active_staff
          staff = Set.new
          tasks = Task.select(:delegated_to, :completed_by).
-            where("iced = ? AND (( delegated_to IS NOT NULL AND completed_by IS NULL) OR completed_on = ?)", false, Date.today).
+            where("(delegated_to IS NOT NULL AND completed_by IS NULL) OR completed_on = ?", Date.today).
             group(:delegated_to, :completed_by)
             
          tasks.each do |u|
