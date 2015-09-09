@@ -83,7 +83,7 @@ class TasksController < ApplicationController
 
        if new_due_date.present? and new_due_date <= WorkDate.get(2) and (task.due_date.blank? or new_due_date < task.due_date)
           comment = "IMPORTANT: Task '#{task.client_name}"
-          comment += ': ' + task.summary[0,20] unless task.summary.blank?
+          comment += ' > ' + task.summary[0,20] unless task.summary.blank?
           comment += "' is now due "
           comment += new_due_date == Date.today ? 'TODAY!' : new_due_date.strftime('%A')
           Comment.create(body: comment)
