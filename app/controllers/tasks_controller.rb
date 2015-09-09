@@ -79,12 +79,15 @@ class TasksController < ApplicationController
           comment += new_due_date == Date.today ? 'TODAY!' : new_due_date.strftime('%A')
           Comment.create(body: comment)
        end
-       
        task.update(params[:task])
-       task.completed_on = Date.today unless task.completed_by.blank?
+       
+       unless task.completed_by.blank?
+          task.completed_on = Date.today 
+          task.iced = false
+       end
+       
        task.save
        flash[:notice] = "Task '#{task.client_name}' updated"
-       
        redirect_to(request.referer)
     end
     
@@ -99,6 +102,10 @@ class TasksController < ApplicationController
     def history
        @task_history = Task.where("completed_on IS NOT NULL AND completed_on > ?", Date.today - 30).
           order(completed_on: :desc, completed_by: :asc).all
+    end
+    
+    def all
+       @tasks = Task.order('LOWER(client_name)').all
     end
     
     def received_by

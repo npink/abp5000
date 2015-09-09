@@ -1,0 +1,37 @@
+%table.table.table-hover.table-bordered.task_table
+	%caption= "All Tasks - Showing #{@tasks.count} tasks"
+	%br
+	%thead
+		%tr
+			%th
+				Client/Task Name
+			%th
+				Notes
+			%th
+				Size
+			%th 
+				Frozen?
+			%th.cell_small
+				Resp.
+			%th.cell_small
+				= image_tag('neXt_X.png', width: '25')
+			%th
+				Completed
+			%th
+				Created
+			%th
+				Due
+				
+	%tbody
+		- unless @tasks.size == 0
+			- @tasks.each do |t|
+				%tr.task_row{'data-task-id' => t.id}
+					%td= t.client_name
+					%td= render_summary(t.summary)
+					%td.cell_small= render_duration(t.duration)
+					%td.cell_small= t.iced? ? 'Y' : 'N' 
+					%td.cell_small= render_task_initials_field(t, 'delegated_to')
+					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td= t.completed_on.strftime("%a, %m-%d") if t.complete?
+					%td= t.created_at.strftime("%a, %m-%d")
+					%td.cell_medium= render_due_date(t.due_date)

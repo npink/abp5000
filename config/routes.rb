@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     patch 'tasks/:id' => 'tasks#update'
     post 'tasks/destroy' => 'tasks#destroy'
     get 'tasks/history' => 'tasks#history'
+    get 'tasks/all' => 'tasks#all'
     post 'tasks/received_by' => 'tasks#received_by'
     
     get 'comments' => 'comments#list'
