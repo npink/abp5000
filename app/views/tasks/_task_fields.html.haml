@@ -7,9 +7,10 @@
 .form-group
 	= @f.label :due_date, class: 'field_header'
 	= @f.date_field :due_date
-.form-group
-	= @f.label "Created", class: 'field_header'
-	= @task.created_at.strftime("%a, %m-%d")
+- if @task.created_at
+	.form-group
+		= @f.label "Created", class: 'field_header'
+		= @task.created_at.strftime("%a, %m-%d")
 	
 .form-group.frozen-field
 	= @f.label :iced?, 'Frozen?', class: 'field_header'
