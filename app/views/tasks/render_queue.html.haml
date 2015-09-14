@@ -27,10 +27,16 @@
 				Created
 			
 	%tbody
-		- if @user_name and @tasks.empty?
+		- if @user_name and @tasks.empty? and @suggested_task
 			%tr
-				%td 
-					%b Your queue is empty!
+				%td{'colspan' => '7'}
+					%b
+						= "Your queue is empty! How about doing "
+						%a.task_suggestion{'data-task-id' => @suggested_task.id, 'data-delegated-to' => @initials}
+							= @suggested_task.client_name
+							- unless @suggested_task.summary.blank?
+								= "> #{@suggested_task.summary}"
+							= "?"
 		- else
 			- @tasks.each do |t|
 				%tr.task_row{'data-task-id' => t.id}

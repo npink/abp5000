@@ -24,7 +24,14 @@ class TasksController < ApplicationController
           @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND (due_date IS NULL OR due_date > ?) AND iced = ?", @initials, WorkDate.get(2), false ).
              order(created_at: :asc)
           @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR due_date > ?)", @initials, true, WorkDate.get(2) )
-             
+          if @tasks.empty?
+             @suggested_task = Task.where("duration = '30' AND delegated_to IS NULL AND iced = ?", false)
+             unless @suggested_task.empty?
+                @suggested_task = @suggested_task[rand(@suggested_task.size)]
+             else
+                @suggested_task = nil
+             end 
+          end
           @tasks_done_today = Task.where( "completed_by IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
              @initials, @initials, Date.today ).order(:client_name)
        end

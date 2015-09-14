@@ -104,6 +104,17 @@ $(function() {
 		}
 	});
 	
+	$(".task_suggestion").click(function(e) {
+		var task_object = { 
+			task_id: $(this).data("task-id"),
+			attribute: 'delegated_to',
+			value: $(this).data('delegated-to')
+	   };
+
+		$.post("initial", task_object);
+		e.preventDefault();
+	});
+	
 });
 
 /*
