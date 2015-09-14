@@ -7,8 +7,6 @@
 				Client/Task Name
 			%th
 				Summary
-			%th 
-				Received By
 			%th.cell_small
 				Resp.
 			%th.cell_small
@@ -34,7 +32,6 @@
 				%tr.task_row{'data-task-id' => t.id}
 					%td= t.client_name
 					%td= render_summary(t.summary)
-					%td= text_field_tag(:received_by, t.received_by, {'size' => '15', 'data-task-id' => t.id, 'class' => 'received_by_updater'})
 					%td.cell_small= render_task_initials_field(t, 'delegated_to') 
 					%td.cell_small= render_task_initials_field(t, 'completed_by')
 					%td= render_duration(t.duration)

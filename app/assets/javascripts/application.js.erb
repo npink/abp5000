@@ -93,17 +93,6 @@ $(function() {
 		location.assign(url);
 	});
 	
-	$(".received_by_updater").bind('keypress', function(e) {
-		if (e.keyCode == 13) {
-			var task_object = { 
-				task_id: $(this).data("task-id"),
-				received_by: $(this).val()
-		   };
-	
-			$.post("received_by", task_object);
-		}
-	});
-	
 	$(".task_suggestion").click(function(e) {
 		var task_object = { 
 			task_id: $(this).data("task-id"),
