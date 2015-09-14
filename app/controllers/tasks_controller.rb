@@ -28,6 +28,7 @@ class TasksController < ApplicationController
           @tasks_done_today = Task.where( "completed_by IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
              @initials, @initials, Date.today ).order(:client_name)
        end
+       
     end
     
     def history
@@ -61,7 +62,7 @@ class TasksController < ApplicationController
           flash[:notice] = "Task '#{task.client_name}' completed"
           task.update( completed_on: (params[:value].blank? ? nil : Date.today) )
        else
-          flash[:notice] = "Task '#{task.client_name}' updated"
+          flash[:notice] = "Task '#{task.client_name}' delegated to #{User.get_full_name(task.delegated_to)}"
        end
        
        
