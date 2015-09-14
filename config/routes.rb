@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     
     get 'tasks/new' => 'tasks#new'
     post 'tasks' => 'tasks#create'
-    get 'tasks/render_queue' => 'tasks#render_queue'
+    get 'tasks/queue' => 'tasks#queue'
     post 'tasks/initial' => 'tasks#initial'
     get 'tasks/:id/edit' => 'tasks#edit'
     patch 'tasks/:id' => 'tasks#update'

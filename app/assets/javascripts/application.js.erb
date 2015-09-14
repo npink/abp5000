@@ -89,7 +89,7 @@ $(function() {
 	
 	$(".headshot_filter").click(function() {
 		// TODO: This erb prevents file from being cached
-		var url = '<%= url_for controller: :tasks, action: :render_queue, only_path: :true %>' + "?user=" + $(this).attr("alt");
+		var url = '<%= url_for controller: :tasks, action: :queue, only_path: :true %>' + "?for=" + $(this).attr("alt");
 		location.assign(url);
 	});
 	

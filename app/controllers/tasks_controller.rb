@@ -3,9 +3,9 @@ class TasksController < ApplicationController
      before_filter :get_latest_news
     
     # Render all tasks that incomplete and undelegated
-    def render_queue
+    def queue
        
-       if params[:user].blank?
+       if params[:for].blank?
           # First find orders that are due within 2 days of today
           @tasks = Task.where("completed_by IS NULL AND due_date <= ? AND delegated_to IS NULL", WorkDate.get(2) ).
              order(:due_date)
@@ -17,7 +17,7 @@ class TasksController < ApplicationController
           @tasks += Task.where( "completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", true, WorkDate.get(2) ).
              order(created_at: :desc)
        else
-          @initials = params[:user].upcase
+          @initials = params[:for].upcase
           @user_name = User.get_full_name(@initials)
           
           @tasks = Task.where( "completed_by IS NULL AND delegated_to = ? AND due_date <= ?", @initials, WorkDate.get(2) ).
