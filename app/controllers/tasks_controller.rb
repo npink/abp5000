@@ -8,13 +8,14 @@ class TasksController < ApplicationController
        if params[:user].blank?
           # First find orders that are due within 2 days of today
           @tasks = Task.where("completed_by IS NULL AND due_date <= ? AND delegated_to IS NULL", WorkDate.get(2) ).
-             order(:due_date).all
+             order(:due_date)
           # Second, sort remaining orders by creation date, oldest to newest
           @tasks += Task.where("completed_by IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?) AND delegated_to IS NULL", 
              false, WorkDate.get(2) ).
-             order(created_at: :asc).all
+             order(created_at: :asc)
           # Last, get frozen orders not due within 2 days
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", true, WorkDate.get(2) )
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", true, WorkDate.get(2) ).
+             order(created_at: :desc)
        else
           @initials = params[:user].upcase
           @user_name = User.get_full_name(@initials)
@@ -23,7 +24,9 @@ class TasksController < ApplicationController
              order(:due_date)
           @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND (due_date IS NULL OR due_date > ?) AND iced = ?", @initials, WorkDate.get(2), false ).
              order(created_at: :asc)
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR due_date > ?)", @initials, true, WorkDate.get(2) )
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR due_date > ?)", @initials, true, WorkDate.get(2) ).
+             order(created_at: :desc)
+          
           if @tasks.empty?
              @suggested_task = Task.where("duration = '30' AND delegated_to IS NULL AND iced = ?", false)
              unless @suggested_task.empty?
@@ -32,6 +35,7 @@ class TasksController < ApplicationController
                 @suggested_task = nil
              end 
           end
+          
           @tasks_done_today = Task.where( "completed_by IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
              @initials, @initials, Date.today ).order(:client_name)
        end
