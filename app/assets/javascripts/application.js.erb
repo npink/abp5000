@@ -55,13 +55,13 @@ $(function() {
 				value: $(this).val()
 		   };
 	
-			$.post("initial", task_object);
+			$.post("/tasks/initial", task_object);
 		}
 	});
 	
 	$(".task_row").click(function(event) {
 		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('received_by_updater')  ) {
-			$.get( $(this).data("task-id") + "/edit", function(data) {
+			$.get( 'tasks/' + $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#task_form').html(data);
 				$('#task_form').modal('show');

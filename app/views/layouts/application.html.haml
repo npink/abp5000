@@ -11,8 +11,9 @@
 			%nav#top_menu
 				#page_title= image_tag 'neXt_logo.png'
 				.btn-group
-					= link_to "Task Queue", {controller: 'tasks', action: 'queue'}, class: 'btn'
-					= link_to "Task History", {controller: 'tasks', action: 'history'}, class: 'btn'
+					= link_to "Dashboard", {controller: 'tasks', action: 'dashboard'}, class: 'btn'
+					= link_to "Queue", {controller: 'tasks', action: 'queue'}, class: 'btn'
+					= link_to "History", {controller: 'tasks', action: 'history'}, class: 'btn'
 					= link_to "All Tasks", {controller: 'tasks', action: 'all'}, class: 'btn'
 					= link_to "News", {controller: 'comments', action: 'list'}, class: 'btn'
 				.btn-group
@@ -32,5 +33,5 @@
 								.banner_comment_body= n.body
 				= yield
 			
-			#footer= "neXt v3.6 - Last updated July 19, 2015 - Built on Ruby on Rails #{Rails::VERSION::STRING}, Ruby #{RUBY_VERSION}"
+			#footer= "neXt v4.0 - Last updated September 16, 2015 - Developed by Nick Pink using Ruby on Rails #{Rails::VERSION::STRING} and Ruby #{RUBY_VERSION}"
 		#task_form.modal.hide.fade

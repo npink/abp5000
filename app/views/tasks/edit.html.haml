@@ -1,6 +1,6 @@
 .modal-dialog
 	.modal-content
-		= form_for @task, url: {action: 'update'} do |f|
+		= form_for @task, url: {controller: 'tasks', action: 'update'} do |f|
 			.modal-header
 				%h4.modal-title Task Details
 			

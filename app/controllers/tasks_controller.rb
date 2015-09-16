@@ -1,6 +1,15 @@
 class TasksController < ApplicationController
    
      before_filter :get_latest_news
+     
+     def dashboard
+        @tasks_due_soon = Task.where("completed_by IS NULL AND due_date <= ?", WorkDate.get(2) ).
+           order(:due_date)
+        @tasks_older_than_a_week = Task.where("completed_by IS NULL AND iced = ? AND created_at < ? AND (due_date IS NULL OR due_date > ?)", 
+           false, Time.now - 6.days, WorkDate.get(2) ).
+           order(created_at: :asc)
+        @tasks = @tasks_due_soon + @tasks_older_than_a_week
+     end
     
     # Render all tasks that incomplete and undelegated
     def queue

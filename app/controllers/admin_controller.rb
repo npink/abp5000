@@ -9,7 +9,7 @@ class AdminController < ApplicationController
    def login
         if params[:password] == Rails.application.config.password
            session[:logged_in] = true
-           redirect_to :controller => 'tasks', :action => 'queue'
+           redirect_to :controller => 'tasks', :action => 'dashboard'
         else
            @error = "Incorrect password"
            render 'login_form'
