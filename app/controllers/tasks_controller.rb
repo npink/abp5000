@@ -3,10 +3,10 @@ class TasksController < ApplicationController
      before_filter :get_latest_news
      
      def dashboard
-        @tasks_due_soon = Task.where("completed_by IS NULL AND due_date <= ?", WorkDate.get(2) ).
+        @tasks_due_soon = Task.where("completed_by IS NULL AND ((due_date <= ? AND duration <> '8') OR (duration = '8' AND due_date < ?))", WorkDate.get(2), WorkDate.get(6) ).
            order(:due_date)
-        @tasks_older_than_a_week = Task.where("completed_by IS NULL AND iced = ? AND created_at < ? AND (due_date IS NULL OR due_date > ?)", 
-           false, Time.now - 6.days, WorkDate.get(2) ).
+        @tasks_older_than_a_week = Task.where("completed_by IS NULL AND iced = ? AND created_at < ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", 
+           false, Time.now - 6.days, WorkDate.get(2), WorkDate.get(6) ).
            order(created_at: :asc)
         @tasks = @tasks_due_soon + @tasks_older_than_a_week
      end
@@ -15,25 +15,25 @@ class TasksController < ApplicationController
     def queue
        
        if params[:for].blank?
-          # First find orders that are due within 2 days of today
-          @tasks = Task.where("completed_by IS NULL AND due_date <= ? AND delegated_to IS NULL", WorkDate.get(2) ).
+          # First find orders that are medium or high priority
+          @tasks = Task.where("completed_by IS NULL AND delegated_to IS NULL AND ((due_date <= ? AND duration <> '8') OR (duration = '8' AND due_date < ?))", WorkDate.get(2), WorkDate.get(6) ).
              order(:due_date)
           # Second, sort remaining orders by creation date, oldest to newest
-          @tasks += Task.where("completed_by IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?) AND delegated_to IS NULL", 
-             false, WorkDate.get(2) ).
+          @tasks += Task.where("completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", 
+             false, WorkDate.get(2), WorkDate.get(6) ).
              order(created_at: :asc)
           # Last, get frozen orders not due within 2 days
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR due_date > ?)", true, WorkDate.get(2) ).
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to IS NULL AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", true, WorkDate.get(2), WorkDate.get(6) ).
              order(created_at: :desc)
        else
           @initials = params[:for].upcase
           @user_name = User.get_full_name(@initials)
           
-          @tasks = Task.where( "completed_by IS NULL AND delegated_to = ? AND due_date <= ?", @initials, WorkDate.get(2) ).
+          @tasks = Task.where( "completed_by IS NULL AND delegated_to = ? AND ((due_date <= ? AND duration <> '8') OR (duration = '8' AND due_date < ?))", @initials, WorkDate.get(2), WorkDate.get(6) ).
              order(:due_date)
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND (due_date IS NULL OR due_date > ?) AND iced = ?", @initials, WorkDate.get(2), false ).
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", @initials, false, WorkDate.get(2), WorkDate.get(6) ).
              order(created_at: :asc)
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR due_date > ?)", @initials, true, WorkDate.get(2) ).
+          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", @initials, true, WorkDate.get(2), WorkDate.get(6) ).
              order(created_at: :desc)
           
           if @tasks.empty?
