@@ -24,9 +24,9 @@
 
 			#content
 				- if flash[:notice]
-					.alert.alert-success{'role' => "alert"}= flash[:notice]
+					.notification= flash[:notice]
 				- unless @latest_news.blank?
-					.alert.alert-warning{'role' => "alert"}
+					.recent_news
 						- @latest_news.each do |n|
 							.comment
 								.comment_timestamp.banner_timestamp= n.created_at.strftime('%l:%M %p')
