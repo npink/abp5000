@@ -19,7 +19,7 @@ class Task < ActiveRecord::Base
          elsif due_date < WorkDate.get(3)
             'M'
          else
-            'L'
+            iced? ? 'F' : 'L'
          end
       end
    end
