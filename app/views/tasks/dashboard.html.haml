@@ -1,6 +1,6 @@
-%table.queue_table.table.table-hover.table-bordered.task_table
-	%caption
-		= "Dashboard - #{@tasks_due_soon.count} tasks due soon and #{@tasks_older_than_a_week.count} tasks older than a week"
+%h2= "Dashboard"
+.page_summary= "#{@tasks_due_soon.count} tasks due soon, #{@tasks_older_than_a_week.count} tasks older than a week"
+%table.queue_table.table.table-hover.task_table
 	%thead
 		%tr
 			%th.cell_large

@@ -1,6 +1,6 @@
-%table.table.table-hover.table-bordered.task_table
-	%caption= "Task History - Showing #{@task_history.count} completed tasks"
-	%br
+%h2= "History"
+.page_summary= "#{@task_history.count} completed tasks shown"
+%table.table.table-hover.task_table
 	%thead
 		%tr
 			%th
@@ -19,11 +19,11 @@
 		- unless @task_history.size == 0
 			- completed_on = Date.today
 			%tr.date_row
-				%th{'colspan' => '7'} Today
 				- if @task_history.first.completed_on != completed_on
-					%tr.date-row
-						%td 
-							%b No tasks done today, get to work!
+					%td 
+						%b No tasks done today, get to work!
+				- else
+					%th{'colspan' => '7'} Today
 			- @task_history.each do |t|
 				- if completed_on != t.completed_on.to_date
 					- completed_on = t.completed_on.to_date

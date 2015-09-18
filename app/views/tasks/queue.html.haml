@@ -1,10 +1,14 @@
-%table.queue_table.table.table-hover.table-bordered.task_table
-	%caption
-		- if @user_name
-			= image_tag("avatars/#{@initials.downcase}.jpeg", class: 'headshot_filter img-circle')
-			= "#{@user_name}'s Queue"
-		- else
-			= "Task Queue - Showing #{@tasks.count} undelegated tasks"
+- if @user_name
+	%h2
+		= image_tag("avatars/#{@initials.downcase}.jpeg", class: 'headshot_filter img-circle')
+		= @user_name
+- else
+	%h2 Queue
+	.page_summary= "#{@tasks.count} undelegated tasks shown"
+
+%table.queue_table.table.table-hover.task_table
+	-if @user_name
+		%caption Responsible For
 	%thead
 		%tr
 			%th.cell_large
@@ -52,12 +56,8 @@
 					%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
 			
 - if @user_name	
-	%table.table.table-hover.table-bordered.task_table
-		%caption
-			- if @tasks_done_today.blank?
-				= "Tasks Completed Today"
-			- else
-				= "#{@tasks_done_today.count} tasks completed today - Great Success!"
+	%table.table.table-hover.task_table
+		%caption Completed Today
 		%br
 		%thead
 			%tr

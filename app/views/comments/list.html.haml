@@ -4,7 +4,7 @@
 	= f.text_field :body, {size: 100, maxlength: 100, id: 'comment_text_field'}
 	%input.btn.btn-primary{'type' => 'submit', 'value' => 'Announce!'}
 
-%table#comments
+%table#comments.queue_table
 	%tbody
 		- creation_date = Date.today
 		%tr.comment_row

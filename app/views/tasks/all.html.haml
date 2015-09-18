@@ -1,6 +1,6 @@
-%table.table.table-hover.table-bordered.task_table
-	%caption= "All Tasks - Showing #{@tasks.count} tasks"
-	%br
+%h2= "All Tasks"
+.page_summary= "#{@tasks.count} shown"
+%table.table.table-hover.task_table
 	%thead
 		%tr
 			%th
