@@ -46,6 +46,13 @@ $(function() {
 		
 	});
 	
+	$(".task_row").hover(function() {
+		$(this).find(".initials_updater").css({'visibility' : 'visible'});
+	},
+	function() {
+		$(this).find(".initials_updater").css({'visibility' : 'hidden'});
+	});
+	
 	// Update task when 'enter' key is pressed
 	$(".initials_updater").bind('keypress', function(e) {
 		if (e.keyCode == 13) {
