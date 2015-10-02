@@ -82,7 +82,7 @@ class TasksController < ApplicationController
              @points[t.completed_by] += (task_points / 2)
           end
        end
-       @points = @points.sort_by{ |k, v| v }.reverse.to_h
+       @points = Hash[ @points.sort_by{ |k, v| v }.reverse ]
     end
     
     def new
