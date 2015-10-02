@@ -12,7 +12,7 @@ class Task < ActiveRecord::Base
       if due_date == nil
          iced? ? 'F' : 'L'
       else
-         if due_date == Date.today
+         if due_date <= Date.today
             'H'
          elsif duration == '8' and due_date < WorkDate.get(6)
             'M'
