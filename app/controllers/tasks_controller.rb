@@ -60,6 +60,31 @@ class TasksController < ApplicationController
        @tasks = Task.order('LOWER(client_name)').all
     end
     
+    def points
+       @points = Hash.new(0)
+       Task.where('completed_by IS NOT NULL').each do |t|
+          case t.duration
+          when '30'
+             task_points = 10
+          when '60'
+             task_points = 20
+          when '2'
+             task_points = 40
+          when '4'
+             task_points = 80
+          when '8'
+             task_points = 150
+          end
+          if t.delegated_to == t.completed_by
+             @points[t.delegated_to] += task_points
+          else
+             @points[t.delegated_to] += (task_points / 2)
+             @points[t.completed_by] += (task_points / 2)
+          end
+       end
+       @points = @points.sort_by{ |k, v| v }.reverse.to_h
+    end
+    
     def new
        @task = Task.new
        render :layout => false

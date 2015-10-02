@@ -1,0 +1,8 @@
+%h2= "Points"
+.page_summary Accumulated over the last 30 days
+%table.points_table
+	%tbody
+		- @points.each do |p, s|
+			%tr
+				%td= image_tag("avatars/#{p.downcase}.jpeg", class: 'img-circle')
+				%td= s
