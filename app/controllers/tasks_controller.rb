@@ -68,11 +68,7 @@ class TasksController < ApplicationController
     def create
        format_parameters
        
-       @news_update = create_news_update_for_urgent_tasks?
-       
-       @task = Task.create params[:task]
-       
-       create_news_update_for_urgent_tasks if @news_update
+       Task.create params[:task]
        
        flash[:notice] = "Task '#{params[:task][:client_name]}' created"
        
@@ -105,9 +101,7 @@ class TasksController < ApplicationController
     def update
        format_parameters
        @task = Task.find( params[:id] )
-       @news_update = create_news_update_for_urgent_tasks?
        @task.update(params[:task])
-       create_news_update_for_urgent_tasks if @news_update
        
        if @task.completed_by.blank?
           @task.completed_on = nil
@@ -138,26 +132,6 @@ class TasksController < ApplicationController
     end
     
     private
-    
-    def create_news_update_for_urgent_tasks?
-       @task = Task.new unless @task
-       @new_due_date = Date.parse( params[:task][:due_date] ) rescue nil
-
-       if @new_due_date.present? and @new_due_date <= WorkDate.get(2) and (@task.due_date.blank? or @new_due_date < @task.due_date)
-          true
-       else
-          false
-       end
-       
-    end
-    
-    def create_news_update_for_urgent_tasks
-       comment = "IMPORTANT: Task '#{@task.client_name}"
-       comment += ' > ' + @task.summary[0,20] unless @task.summary.blank?
-       comment += "' is now due "
-       comment += @new_due_date == Date.today ? 'TODAY!' : @new_due_date.strftime('%A')
-       Comment.create(body: comment)
-    end
     
     def get_latest_news
        @latest_news = Comment.where('created_at > ?', Time.now - 24.hours).order(created_at: :desc)
