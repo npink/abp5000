@@ -69,11 +69,11 @@ class TasksController < ApplicationController
           when '60'
              task_points = 20
           when '2'
-             task_points = 40
+             task_points = 50
           when '4'
-             task_points = 80
+             task_points = 100
           when '8'
-             task_points = 150
+             task_points = 200
           end
           if t.delegated_to == t.completed_by
              @points[t.delegated_to] += task_points

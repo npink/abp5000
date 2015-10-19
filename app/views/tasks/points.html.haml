@@ -1,8 +1,15 @@
 %h2= "Points"
-.page_summary Accumulated over the last 30 days
-%table.points_table
-	%tbody
-		- @points.each do |p, s|
-			%tr
-				%td= image_tag("avatars/#{p.downcase}.jpeg", class: 'img-circle')
-				%td= s
+.page_summary Per Hour Worked, Average over the last 30 days
+#points_container
+	%table.points_table
+		%tbody
+			- @points.each do |p, s|
+				%tr
+					%td= image_tag("avatars/#{p.downcase}.jpeg", class: 'img-circle')
+					%td= s / (User.hours_worked(p) * 4)
+	.points_legend
+		%div 1-star = 10 points
+		%div 2-star = 20 points
+		%div 3-star = 50 points
+		%div 4-star = 100 points
+		%div Monster = 200 points
