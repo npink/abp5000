@@ -9,6 +9,23 @@ class TasksController < ApplicationController
            false, Time.now - 6.days, WorkDate.get(2), WorkDate.get(6) ).
            order(created_at: :asc)
         @tasks = @tasks_due_soon + @tasks_older_than_a_week
+        
+        @work_hours_left = 0
+       Task.where("completed_by IS NULL AND iced = ?", false).each do |t|
+          puts t.duration
+          case t.duration
+          when '30'
+             @work_hours_left += 0.25
+          when '60'
+             @work_hours_left += 0.75
+          when '2'
+             @work_hours_left += 1.5
+          when '4'
+             @work_hours_left += 3
+          when '8'
+             @work_hours_left += 6
+          end
+       end
      end
     
     # Render all tasks that incomplete and undelegated

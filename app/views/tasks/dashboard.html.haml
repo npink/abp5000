@@ -1,5 +1,5 @@
 %h2= "Dashboard"
-.page_summary= "#{@tasks_due_soon.count} tasks due soon, #{@tasks_older_than_a_week.count} tasks older than a week"
+.page_summary= "#{@tasks_due_soon.count} tasks due soon, #{@tasks_older_than_a_week.count} tasks older than a week, #{@work_hours_left.round} work hours left"
 %table.queue_table.table.table-hover.task_table
 	%thead
 		%tr
