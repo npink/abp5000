@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get 'tasks/history' => 'tasks#history'
     get 'tasks/all' => 'tasks#all'
     get 'tasks/points' => 'tasks#points'
-    post 'tasks/received_by' => 'tasks#received_by'
+    post 'tasks/update_status' => 'tasks#update_status'
     
     get 'comments' => 'comments#list'
     post 'comments' => 'comments#create'

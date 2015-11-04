@@ -28,6 +28,19 @@ module ApplicationHelper
       end
    end
    
+   def render_status_updater(task)
+      content_tag(:span, :class => 'status_updater') do
+         
+         if task.status == 'P'
+            concat image_tag('pending_stamp.png', :class => 'status_stamp')
+         elsif task.status == 'A'
+            concat image_tag('approved_stamp.png', :class => 'status_stamp')
+         end
+         
+         concat select_tag :status, options_for_select(Task.status_options, task.status), :class => "status_options hidden", 'data-task-id' => task.id
+      end
+   end
+   
    def render_due_date(date)
       return if date.blank?
       

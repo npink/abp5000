@@ -134,6 +134,15 @@ class TasksController < ApplicationController
        render js: "location.assign('#{request.referer}')"
     end
     
+    def update_status
+       task = Task.find(params[:task_id])
+       task.update( 'status' =>  params[:task_status] )
+       
+       
+       flash[:notice] = "Task '#{task.client_name}' status changed"
+       render js: "location.assign('#{request.referer}')"
+    end
+    
     def edit
       @task = Task.find( params[:id] )
       render :layout => false

@@ -27,7 +27,9 @@
 			- @tasks.each do |t|
 				%tr.task_row{'data-task-id' => t.id}
 					%td= t.client_name
-					%td= render_summary(t.summary)
+					%td
+						= render_status_updater(t)
+						= render_summary(t.summary)
 					%td.cell_small= render_duration(t.duration)
 					%td.cell_small= t.iced? ? 'Y' : 'N' 
 					%td.cell_small= render_task_initials_field(t, 'delegated_to')

@@ -126,6 +126,14 @@ h2 {
 	display: inline;
 }
 
+.status_updater {
+	width: 100px;
+}
+
+.status_options {
+	width: inherit;
+}
+
 .initials_field {
 	width: inherit;
 	text-transform: uppercase;
@@ -199,6 +207,20 @@ caption, h2, .page_summary {
 
 .task_row:hover {
 	cursor: url(<%= asset_path 'magnifying_glass_icon.png' %>), zoom-in;
+}
+
+.pending_stamp {
+	visibility: hidden;
+	opacity: 0.3;
+}
+
+.hidden {
+	display: none;
+}
+
+.pending_stamp:hover {
+	opacity: 1;
+	cursor: pointer;
 }
 
 .initials_updater {

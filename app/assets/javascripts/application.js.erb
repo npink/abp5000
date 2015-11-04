@@ -48,9 +48,13 @@ $(function() {
 	
 	$(".task_row").hover(function() {
 		$(this).find(".initials_updater").css({'visibility' : 'visible'});
+		$(this).find(".status_stamp").addClass('hidden');
+		$(this).find(".status_options").removeClass('hidden');
 	},
 	function() {
 		$(this).find(".initials_updater").css({'visibility' : 'hidden'});
+		$(this).find(".status_stamp").removeClass('hidden');
+		$(this).find(".status_options").addClass('hidden');
 	});
 	
 	// Update task when 'enter' key is pressed
@@ -66,8 +70,18 @@ $(function() {
 		}
 	});
 	
+	// Update task status when select list selection in changed
+	$(".status_options").change(function(e) {
+		var task_object = { 
+			task_id: $(this).data("task-id"),
+			task_status: $(this).val()
+	   };
+		
+		$.post(window.location.origin + "/tasks/update_status", task_object );
+	});
+	
 	$(".task_row").click(function(event) {
-		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('received_by_updater')  ) {
+		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('status_options') ) {
 			$.get(window.location.origin + '/tasks/' + $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#task_form').html(data);
@@ -112,18 +126,3 @@ $(function() {
 	});
 	
 });
-
-/*
-Figure out where to use this cool effect!
-
-$(".headshot").click(function() {
-	$(this).effect({
-		effect: "puff", 
-		percent: 2000,
-		duration: 1500,
-		complete: function() {
-			location.assign(location.pathname + "?user=" + $(this).attr("alt") );
-		}
-	});
-});
-*/

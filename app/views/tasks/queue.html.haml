@@ -47,7 +47,9 @@
 					%td.cell_large= t.client_name
 					%td.cell_small= render_priority(t.priority)
 					%td.cell_small= render_duration(t.duration)
-					%td.cell_large= render_summary(t.summary)
+					%td.cell_large
+						= render_status_updater(t)
+						= render_summary(t.summary)
 					- unless @user_name
 						%td.cell_small= render_task_initials_field(t, 'delegated_to')
 					- if @user_name
@@ -83,7 +85,9 @@
 					%tr.task_row{'data-task-id' => t.id}
 						%td= t.client_name
 						%td= render_duration(t.duration)
-						%td= render_summary(t.summary)
+						%td
+							= render_status_updater(t)
+							= render_summary(t.summary)
 						%td.cell_small= render_task_initials_field(t, 'delegated_to') 
 						%td.cell_small= render_task_initials_field(t, 'completed_by')
 						%td= t.created_at.strftime("%a, %m-%d")
