@@ -1,29 +1,36 @@
-.form-group
-	= @f.label :client_name, "Client/Task Name (required)", class: 'field_header'
-	= @f.text_field :client_name, {size: 25, maxlength: 35}
-.form-group
-	= @f.label :summary, "Notes", class: 'field_header'
-	= @f.text_area :summary, {maxlength: '255', rows: ("#{@task.summary.lines.size}" rescue '1')}
-.form-group
-	= @f.label :due_date, class: 'field_header'
-	= @f.date_field :due_date
-- if @task.created_at
+.task_form_left_panel
 	.form-group
-		= @f.label "Created", class: 'field_header'
-		= @task.created_at.strftime("%a, %m-%d")
+		= @f.label :client_name, "Client/Task Name (required)", class: 'field_header'
+		= @f.text_field :client_name, {size: 25, maxlength: 35}
+	.form-group
+		= @f.label :summary, "Notes", class: 'field_header'
+		= @f.text_area :summary, {maxlength: '255', rows: ("#{@task.summary.lines.size}" rescue '1')}
+	.form-group
+		= @f.label :due_date, class: 'field_header'
+		= @f.date_field :due_date
+	.form_group
+		= @f.label :duration, "Size", class: 'field_header'
+		= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)
+	.form_group
+		= @f.label :delegated_to, "Responsible", class: 'field_header'
+		= @f.text_field :delegated_to, {class: 'initials_field', size: 2, maxlength: 2}
+	.form_group
+		= @f.label :completed_by, "Completed By", class: 'field_header'
+		= @f.text_field :completed_by, {class: 'initials_field', size: 2, maxlength: 2}
+.task_form_right_panel
+	.form-group
+		= @f.label :estimate_number, "Estimate Number", class: 'field_header'
+		= @f.text_field :estimate_number, {size: 8, maxlength: 12}
+	- if @task.created_at
+		.form-group
+			= @f.label "Created", class: 'field_header'
+			= @task.created_at.strftime("%a, %m-%d")
+	.form-group.frozen-field
+		= @f.label :iced?, 'Frozen?', class: 'field_header'
+		.radio_group
+			= @f.label 'iced_no', "No", {class: 'radio_label'}
+			= @f.radio_button 'iced', "false", checked: !@task.iced
+		.radio_group
+			= @f.label 'iced_yes', "Yes", {class: 'radio_label'}
+			= @f.radio_button 'iced', "true", checked: @task.iced
 	
-.form-group.frozen-field
-	= @f.label :iced?, 'Frozen?', class: 'field_header'
-	.radio_group
-		= @f.label 'iced_no', "No", {class: 'radio_label'}
-		= @f.radio_button 'iced', "false", checked: !@task.iced
-	.radio_group
-		= @f.label 'iced_yes', "Yes", {class: 'radio_label'}
-		= @f.radio_button 'iced', "true", checked: @task.iced
-	
-.form_group
-	= @f.label :duration, "Size", class: 'field_header'
-	= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)
-.form_group
-	= @f.label :delegated_to, "Responsible", class: 'field_header'
-	= @f.text_field :delegated_to, {class: 'initials_field', size: 2, maxlength: 2}

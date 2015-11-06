@@ -8,9 +8,6 @@
 			
 				- @f = f
 				= render "task_fields"
-				.form_group
-					= @f.label :completed_by, "Completed By", class: 'field_header'
-					= @f.text_field :completed_by, {class: 'initials_field', size: 2, maxlength: 2}
 				
 			.modal-footer
 				%input.btn.btn-primary{'type' => 'submit', 'value' => 'Update'}
