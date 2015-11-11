@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     
     get 'tasks/new' => 'tasks#new'
     post 'tasks' => 'tasks#create'
-    get 'dashboard' => 'tasks#dashboard'
+    get 'dashboard' => 'tasks#dashboard', :protocol => 'http'
     get 'tasks/queue' => 'tasks#queue'
     post 'tasks/initial' => 'tasks#initial'
     get 'tasks/:id/edit' => 'tasks#edit'

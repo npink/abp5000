@@ -12,7 +12,6 @@ class TasksController < ApplicationController
         
         @work_hours_left = 0
        Task.where("completed_by IS NULL AND iced = ?", false).each do |t|
-          puts t.duration
           case t.duration
           when '30'
              @work_hours_left += 0.25
