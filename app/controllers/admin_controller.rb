@@ -23,7 +23,6 @@ class AdminController < ApplicationController
    
    def normalize_attributes
       Task.all.each do |t|
-         puts t.client_name
          t.delegated_to = nil if t.delegated_to.blank?
          t.completed_by = nil if t.completed_by.blank?
          t.completed_on = nil if t.completed_on.blank?
