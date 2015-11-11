@@ -11,7 +11,6 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'pg', group: :production
 gem 'rails_12factor', group: :production
-gem 'rack-ssl-enforcer', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
