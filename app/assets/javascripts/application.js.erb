@@ -48,13 +48,13 @@ $(function() {
 	
 	$(".task_row").hover(function() {
 		$(this).find(".initials_updater").css({'visibility' : 'visible'});
-		$(this).find(".status_stamp").addClass('hidden');
-		$(this).find(".status_options").removeClass('hidden');
+		$(this).find('.status_updater').find(".status_stamp").addClass('hidden');
+		$(this).find('.status_updater').find(".status_options").removeClass('hidden');
 	},
 	function() {
 		$(this).find(".initials_updater").css({'visibility' : 'hidden'});
-		$(this).find(".status_stamp").removeClass('hidden');
-		$(this).find(".status_options").addClass('hidden');
+		$(this).find('.status_updater').find(".status_stamp").removeClass('hidden');
+		$(this).find('.status_updater').find(".status_options").addClass('hidden');
 	});
 	
 	// Update task when 'enter' key is pressed

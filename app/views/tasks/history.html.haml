@@ -32,7 +32,7 @@
 				%tr.task_row{'data-task-id' => t.id}
 					%td= t.client_name
 					%td
-						= render_status_updater(t)
+						= render_status_stamp(t)
 						= render_summary(t.summary)
 					%td.cell_small= render_task_initials_field(t, 'delegated_to') 
 					%td.cell_small= render_task_initials_field(t, 'completed_by')

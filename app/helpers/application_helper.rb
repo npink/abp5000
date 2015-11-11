@@ -41,6 +41,14 @@ module ApplicationHelper
       end
    end
    
+   def render_status_stamp(task)
+      if task.status == 'P'
+         image_tag('pending_stamp.png', :class => 'status_stamp')
+      elsif task.status == 'A'
+         image_tag('approved_stamp.png', :class => 'status_stamp')
+      end
+   end
+   
    def render_due_date(date)
       return if date.blank?
       
