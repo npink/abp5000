@@ -32,3 +32,5 @@
 				%td.cell_small= render_task_initials_field(t, 'completed_by')
 				%td.cell_medium= render_due_date(t.due_date)
 				%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
+
+= render "surfline_widget" unless Rails.env.development?
