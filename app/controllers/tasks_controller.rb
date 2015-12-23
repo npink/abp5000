@@ -13,7 +13,7 @@ class TasksController < ApplicationController
         @tasks = @tasks_due_soon + @tasks_due_later + @tasks_frozen_and_not_due_soon
         
         @work_hours_left = 0
-       Task.where("completed_by IS NULL AND iced = ?", false).each do |t|
+       (@tasks_due_soon + @tasks_due_later).each do |t|
           case t.duration
           when '30'
              @work_hours_left += 0.25
