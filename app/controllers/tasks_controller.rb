@@ -89,6 +89,10 @@ class TasksController < ApplicationController
        @points = Hash[ @points.sort_by{ |k, v| v }.reverse ]
     end
     
+    def skiurf_report
+       
+    end
+    
     def new
        @task = Task.new
        render :layout => false
