@@ -11,16 +11,17 @@
 	.form_group
 		= @f.label :duration, "Size", class: 'field_header'
 		= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)
+	.form-group
+		= @f.label :estimate_number, "Estimate Number", class: 'field_header'
+		= @f.text_field :estimate_number, {size: 8, maxlength: 12}
+		
+.task_form_right_panel
 	.form_group
 		= @f.label :delegated_to, "Responsible", class: 'field_header'
 		= @f.text_field :delegated_to, {class: 'initials_field', size: 2, maxlength: 2}
 	.form_group
 		= @f.label :completed_by, "Completed By", class: 'field_header'
 		= @f.text_field :completed_by, {class: 'initials_field', size: 2, maxlength: 2}
-.task_form_right_panel
-	.form-group
-		= @f.label :estimate_number, "Estimate Number", class: 'field_header'
-		= @f.text_field :estimate_number, {size: 8, maxlength: 12}
 	- if @task.created_at
 		.form-group
 			= @f.label "Created", class: 'field_header'
