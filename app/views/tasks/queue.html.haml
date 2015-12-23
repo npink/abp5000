@@ -1,14 +1,8 @@
-- if @user_name
-	%h2
-		= image_tag("avatars/#{@initials.downcase}.jpeg", class: 'headshot_filter img-circle')
-		= @user_name
-- else
-	%h2 Queue
-	.page_summary= "#{@tasks.count} undelegated tasks shown"
-
+%h2
+	= image_tag("avatars/#{@initials.downcase}.jpeg", class: 'headshot_filter img-circle')
+	= @user_name
 %table.queue_table.table.table-hover.task_table
-	-if @user_name
-		%caption Responsible For
+	%caption To Do
 	%thead
 		%tr
 			%th.cell_large
@@ -19,19 +13,15 @@
 				Size
 			%th.cell_large
 				Notes
-			- unless @user_name
-				%th.cell_small
-					Respon.
-			- if @user_name
-				%th.cell_small
-					= image_tag('neXt_X.png', width: '25')
+			%th.cell_small
+				= image_tag('neXt_X.png', width: '25')
 			%th.cell_medium
 				Due Date
 			%th.cell_medium
 				Created
 			
 	%tbody
-		- if @user_name and @tasks.empty? and @suggested_task
+		- if @tasks.empty? and @suggested_task
 			%tr
 				%td{'colspan' => '7'}
 					%b
@@ -50,44 +40,40 @@
 					%td.cell_large
 						= render_status_updater(t)
 						= render_summary(t.summary)
-					- unless @user_name
-						%td.cell_small= render_task_initials_field(t, 'delegated_to')
-					- if @user_name
-						%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td.cell_small= render_task_initials_field(t, 'completed_by')
 					%td.cell_medium= render_due_date(t.due_date)
 					%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
 			
-- if @user_name	
-	%table.table.table-hover.task_table
-		%caption Completed Today
-		%br
-		%thead
+%table.table.table-hover.task_table
+	%caption Completed Today
+	%br
+	%thead
+		%tr
+			%th
+				Client/Task Name
+			%th
+				Size
+			%th
+				Notes
+			%th.cell_small
+				Resp.
+			%th.cell_small
+				= image_tag('neXt_X.png', width: '25')
+			%th
+				Created
+	%tbody
+		- if @tasks_done_today.empty?
 			%tr
-				%th
-					Client/Task Name
-				%th
-					Size
-				%th
-					Notes
-				%th.cell_small
-					Resp.
-				%th.cell_small
-					= image_tag('neXt_X.png', width: '25')
-				%th
-					Created
-		%tbody
-			- if @tasks_done_today.empty?
-				%tr
+				%td
+					%b You've accomplished nothing :(
+		- else
+			- @tasks_done_today.each do |t|
+				%tr.task_row{'data-task-id' => t.id}
+					%td= t.client_name
+					%td= render_duration(t.duration)
 					%td
-						%b You've accomplished nothing :(
-			- else
-				- @tasks_done_today.each do |t|
-					%tr.task_row{'data-task-id' => t.id}
-						%td= t.client_name
-						%td= render_duration(t.duration)
-						%td
-							= render_status_updater(t)
-							= render_summary(t.summary)
-						%td.cell_small= render_task_initials_field(t, 'delegated_to') 
-						%td.cell_small= render_task_initials_field(t, 'completed_by')
-						%td= t.created_at.strftime("%a, %m-%d")
+						= render_status_updater(t)
+						= render_summary(t.summary)
+					%td.cell_small= render_task_initials_field(t, 'delegated_to') 
+					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td= t.created_at.strftime("%a, %m-%d")

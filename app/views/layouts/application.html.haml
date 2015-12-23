@@ -11,8 +11,7 @@
 			%nav#top_menu
 				#page_title= image_tag 'neXt_logo.png'
 				.btn-group
-					= link_to "Dashboard", url_for(controller: 'tasks', action: 'dashboard'), class: 'btn'
-					= link_to "Queue", {controller: 'tasks', action: 'queue'}, class: 'btn'
+					= link_to "To Do", url_for(controller: 'tasks', action: 'to_do'), class: 'btn'
 					= link_to "History", {controller: 'tasks', action: 'history'}, class: 'btn'
 					= link_to "All Tasks", {controller: 'tasks', action: 'all'}, class: 'btn'
 					= link_to "News", {controller: 'comments', action: 'list'}, class: 'btn'
