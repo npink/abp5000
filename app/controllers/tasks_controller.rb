@@ -176,7 +176,7 @@ class TasksController < ApplicationController
     private
     
     def get_latest_news
-       @latest_news = Comment.where('created_at > ?', Time.now - 24.hours).order(created_at: :desc)
+       @latest_news = Comment.where('created_at > ?', Time.now - 48.hours).order(created_at: :desc)
     
     end
     
