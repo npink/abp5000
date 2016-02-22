@@ -6,6 +6,8 @@
 			%th.cell_large
 				Client/Task Name
 			%th.cell_small
+				Est. #
+			%th.cell_small
 				Pri.
 			%th.cell_small
 				Size
@@ -23,6 +25,7 @@
 		- @tasks.each do |t|
 			%tr.task_row{'data-task-id' => t.id}
 				%td.cell_large= t.client_name
+				%td.cell_small= t.estimate_number
 				%td.cell_small= render_priority(t.priority)
 				%td.cell_small= render_duration(t.duration)
 				%td.cell_large
