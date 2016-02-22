@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby "2.2.4"
 gem 'rails', '4.1.6'
 #gem 'sqlite3', group: :development
 # Use CoffeeScript for .js.coffee assets and views
@@ -9,7 +10,7 @@ gem 'jquery-rails'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 #gem 'spring',        group: :development
 gem 'haml'
-gem 'pg', group: :production
+gem 'pg'
 gem 'rails_12factor', group: :production
 
 # Use debugger
