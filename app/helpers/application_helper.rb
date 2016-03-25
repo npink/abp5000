@@ -56,6 +56,8 @@ module ApplicationHelper
          "Today"
       elsif date == Date.today + 1
          "Tomorrow"
+      elsif date < Date.today + 7 and date > Date.today
+         date.strftime("%A")
       else
          date.strftime("%a, %m-%d")
       end
