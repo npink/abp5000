@@ -4,7 +4,7 @@
 		= @f.text_field :client_name, {size: 25, maxlength: 35}
 	.form-group
 		= @f.label :summary, "Notes", class: 'field_header'
-		= @f.text_area :summary, {maxlength: '255', rows: ("#{@task.summary.lines.size}" rescue '1')}
+		= @f.text_area :summary, {maxlength: '2000', rows: ("#{@task.summary.lines.size}" rescue '1')}
 	.form-group
 		= @f.label :due_date, class: 'field_header'
 		= @f.date_field :due_date
