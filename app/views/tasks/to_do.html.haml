@@ -1,5 +1,5 @@
 %h2= "To Do"
-.page_summary= "#{@tasks_due_soon.count} tasks due soon, #{@work_hours_left.round} work hours left"
+.page_summary
 %table.queue_table.table.table-hover.task_table
 	%thead
 		%tr
@@ -7,8 +7,6 @@
 				Client/Task Name
 			%th.cell_small
 				Est. #
-			%th.cell_small
-				Pri.
 			%th.cell_small
 				Size
 			%th.cell_large
@@ -21,17 +19,22 @@
 				Due Date
 			%th.cell_medium
 				Created
-	%tbody		
-		- @tasks.each do |t|
-			%tr.task_row{'data-task-id' => t.id}
-				%td.cell_large= t.client_name
-				%td.cell_small= t.estimate_number
-				%td.cell_small= render_priority(t.priority)
-				%td.cell_small= render_duration(t.duration)
-				%td.cell_large
-					= render_status_updater(t)
-					= render_summary(t.summary)
-				%td.cell_small= render_task_initials_field(t, 'delegated_to')
-				%td.cell_small= render_task_initials_field(t, 'completed_by')
-				%td.cell_medium= render_due_date(t.due_date)
-				%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
+	%tbody
+		- @prioritized.each_with_index do |p, i|
+			%tr
+				%th.priority_header{'colspan' => '8'}
+					= image_tag("priorities/#{@priorities[i].downcase}.png", height: '20', width: '20') 
+					= @priorities[i]
+
+			- p.each do |t|
+				%tr.task_row{'data-task-id' => t.id}
+					%td.cell_large= t.client_name
+					%td.cell_small= t.estimate_number
+					%td.cell_small= render_duration(t.duration)
+					%td.cell_large
+						= render_status_updater(t)
+						= render_summary(t.summary)
+					%td.cell_small= render_task_initials_field(t, 'delegated_to')
+					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td.cell_medium= render_due_date(t.due_date)
+					%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"

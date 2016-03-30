@@ -2,31 +2,41 @@ class TasksController < ApplicationController
    
      before_filter :get_latest_news
      
-     def to_do
-        @tasks_due_soon = Task.where("completed_by IS NULL AND ((due_date <= ? AND duration <> '8') OR (duration = '8' AND due_date < ?))", WorkDate.get(2), WorkDate.get(6) ).
-           order(:due_date)
-        @tasks_due_later = Task.where("completed_by IS NULL AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", 
-           false, WorkDate.get(2), WorkDate.get(6) ).
+     def to_do   
+        @unfinished = Task.where("completed_by IS NULL AND iced = ?", false)
+        @prioritized = []
+        # due today and past due
+        @prioritized[0] = @unfinished.where('due_date <= ?', Date.today).order(:due_date)
+        # one week or more older
+        @prioritized[1] = @unfinished.where('created_at <= ? AND (due_date > ? OR due_date IS NULL)', Date.today - 6, Date.today).order(created_at: :asc)
+        # due tomorrow or the day after tomorrow
+        @prioritized[1] += @unfinished.where('due_date > ? AND due_date <= ? AND created_at > ?', Date.today, WorkDate.get(2), Date.today - 6 ).
            order(created_at: :asc)
-        @tasks_frozen_and_not_due_soon = Task.where( "completed_by IS NULL AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", true, WorkDate.get(2), WorkDate.get(6) ).
-              order(created_at: :desc)
-        @tasks = @tasks_due_soon + @tasks_due_later + @tasks_frozen_and_not_due_soon
-        
-        @work_hours_left = 0
-       (@tasks_due_soon + @tasks_due_later).each do |t|
-          case t.duration
-          when '30'
-             @work_hours_left += 0.25
-          when '60'
-             @work_hours_left += 0.75
-          when '2'
-             @work_hours_left += 1.5
-          when '4'
-             @work_hours_left += 3
-          when '8'
-             @work_hours_left += 6
-          end
-       end
+        # monster tasks due within the next week
+        @prioritized[1] += @unfinished.where("duration = '8' AND due_date > ? AND due_date < ? AND created_at > ?", WorkDate.get(2), WorkDate.get(6), Date.today - 6)
+        # remaining tasks sorted from oldest to newest
+        @prioritized[2] = @unfinished.where("created_at > ? AND (((due_date IS NULL OR due_date > ?) AND duration <> '8') OR (duration = '8' AND (due_date IS NULL OR due_date >= ?) ) )", Date.today - 6, WorkDate.get(2), WorkDate.get(6) )
+        @prioritized[3] = Task.where("completed_by IS NULL and iced = ?", true).order(created_at: :desc)
+  		  @priorities = [
+  			'High',
+  			'Medium',
+         'Low',
+         'Frozen'
+  		]
+=begin     
+      case t.duration
+      when '30'
+         @work_hours_left += 0.25
+      when '60'
+         @work_hours_left += 0.75
+      when '2'
+         @work_hours_left += 1.5
+      when '4'
+         @work_hours_left += 3
+      when '8'
+         @work_hours_left += 6
+      end
+=end        
      end
     
     # Render all tasks for a certain person
@@ -40,15 +50,6 @@ class TasksController < ApplicationController
              order(created_at: :asc)
           @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", @initials, true, WorkDate.get(2), WorkDate.get(6) ).
              order(created_at: :desc)
-          
-          if @tasks.empty?
-             @suggested_task = Task.where("duration = '30' AND delegated_to IS NULL AND iced = ?", false)
-             unless @suggested_task.empty?
-                @suggested_task = @suggested_task[rand(@suggested_task.size)]
-             else
-                @suggested_task = nil
-             end 
-          end
           
           @tasks_done_today = Task.where( "completed_by IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
              @initials, @initials, Date.today ).order(:client_name)
