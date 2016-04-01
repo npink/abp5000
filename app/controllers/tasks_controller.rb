@@ -23,21 +23,12 @@ class TasksController < ApplicationController
          'Low',
          'Frozen'
   		]
-=begin     
-      case t.duration
-      when '30'
-         @work_hours_left += 0.25
-      when '60'
-         @work_hours_left += 0.75
-      when '2'
-         @work_hours_left += 1.5
-      when '4'
-         @work_hours_left += 3
-      when '8'
-         @work_hours_left += 6
-      end
-=end        
-     end
+         
+      @high_hours = Task.count_hours(@prioritized[0])
+      @medium_hours = Task.count_hours(@prioritized[1]) + @high_hours
+      @low_hours = Task.count_hours(@prioritized[2]) + @medium_hours
+      @frozen_hours = Task.count_hours(@prioritized[3])
+    end
     
     # Render all tasks for a certain person
     def queue

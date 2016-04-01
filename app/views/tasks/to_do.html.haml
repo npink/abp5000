@@ -1,5 +1,22 @@
 %h2= "To Do"
 .page_summary
+	.work_hours_indicator 
+		%span Hours left:
+	.work_hours_indicator
+		%span= @high_hours.ceil
+		= image_tag("priorities/high.png", height: '20', width: '20', class: 'indicator_circle')
+	.work_hours_indicator
+		%span= @medium_hours.ceil
+		= image_tag("priorities/high.png", height: '20', width: '20', class: 'indicator_circle')
+		= image_tag("priorities/medium.png", height: '20', width: '20', class: 'indicator_circle')
+	.work_hours_indicator
+		%span= @low_hours.ceil
+		= image_tag("priorities/high.png", height: '20', width: '20')
+		= image_tag("priorities/medium.png", height: '20', width: '20')
+		= image_tag("priorities/low.png", height: '20', width: '20')
+	.work_hours_indicator
+		%span= @frozen_hours.ceil
+		= image_tag("priorities/frozen.png", height: '20', width: '20')
 %table.queue_table.table.table-hover.task_table
 	%thead
 		%tr

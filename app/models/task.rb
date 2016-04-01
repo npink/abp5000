@@ -30,6 +30,25 @@ class Task < ActiveRecord::Base
    
    class << self
       
+      def count_hours(tasks)
+         hours = 0
+         tasks.each do |t|
+            case t.duration
+            when '30'
+               hours += 0.25
+            when '60'
+               hours += 0.75
+            when '2'
+               hours += 1.5
+            when '4'
+               hours += 3
+            when '8'
+               hours += 6
+            end
+         end
+         hours
+      end
+      
       def active_staff
          staff = Set.new
          tasks = Task.select(:delegated_to, :completed_by).
