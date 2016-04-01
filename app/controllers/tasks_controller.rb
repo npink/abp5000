@@ -81,10 +81,6 @@ class TasksController < ApplicationController
        @points = Hash[ @points.sort_by{ |k, v| v }.reverse ]
     end
     
-    def skiurf_report
-       
-    end
-    
     def new
        @task = Task.new
        render :layout => false
@@ -152,15 +148,6 @@ class TasksController < ApplicationController
        task = Task.find( params['task_id'] )
        flash[:notice] = "Task '#{task.client_name}' destroyed"
        task.destroy
-       
-       render js: "location.assign('#{request.referer}')"
-    end
-    
-    def received_by
-       task = Task.find(params[:task_id])
-       task.update( :received_by => params[:received_by] )
-       flash[:notice] = "Task '#{task.client_name}' updated"
-       flash.keep(:notice)
        
        render js: "location.assign('#{request.referer}')"
     end
