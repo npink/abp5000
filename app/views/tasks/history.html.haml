@@ -6,6 +6,8 @@
 			%th
 				Client/Task Name
 			%th
+				Est. #
+			%th
 				Summary
 			%th.cell_small
 				Resp.
@@ -19,10 +21,7 @@
 		- unless @task_history.size == 0
 			- completed_on = Date.today
 			%tr.date_row
-				- if @task_history.first.completed_on != completed_on
-					%td 
-						%b No tasks done today, get to work!
-				- else
+				- unless @task_history.first.completed_on != completed_on
 					%th{'colspan' => '7'} Today
 			- @task_history.each do |t|
 				- if completed_on != t.completed_on.to_date
@@ -31,6 +30,7 @@
 						%th{'colspan' => '7'}= completed_on.strftime("%a, %m-%d")
 				%tr.task_row{'data-task-id' => t.id}
 					%td= t.client_name
+					%td= t.estimate_number
 					%td
 						= render_status_stamp(t)
 						= render_summary(t.summary)

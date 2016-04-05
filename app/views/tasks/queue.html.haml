@@ -8,6 +8,8 @@
 			%th.cell_large
 				Client/Task Name
 			%th.cell_small
+				Est. #
+			%th.cell_small
 				Size
 			%th.cell_large
 				Notes
@@ -22,6 +24,7 @@
 		- @tasks.each do |t|
 			%tr.task_row{'data-task-id' => t.id}
 				%td.cell_large= t.client_name
+				%td.cell_small= t.estimate_number
 				%td.cell_small= render_duration(t.duration)
 				%td.cell_large
 					= render_status_updater(t)
@@ -37,6 +40,8 @@
 		%tr
 			%th
 				Client/Task Name
+			%th.cell_small
+				Est. #
 			%th
 				Size
 			%th
@@ -56,6 +61,7 @@
 			- @tasks_done_today.each do |t|
 				%tr.task_row{'data-task-id' => t.id}
 					%td= t.client_name
+					%td.cell_small= t.estimate_number
 					%td= render_duration(t.duration)
 					%td
 						= render_status_updater(t)
