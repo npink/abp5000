@@ -5,8 +5,9 @@ class TasksController < ApplicationController
      def to_do   
         @unfinished = Task.where("completed_by IS NULL AND iced = ?", false)
         @prioritized = []
-        # due today and past due
+        # high priority, due today and past due
         @prioritized[0] = @unfinished.where('due_date <= ?', Date.today).order(:due_date)
+        # medium priority
         # one week or more older
         @prioritized[1] = @unfinished.where('created_at <= ? AND (due_date > ? OR due_date IS NULL)', Date.today - 6, Date.today).order(created_at: :asc)
         # due tomorrow or the day after tomorrow
@@ -14,9 +15,11 @@ class TasksController < ApplicationController
            order(created_at: :asc)
         # monster tasks due within the next week
         @prioritized[1] += @unfinished.where("duration = '8' AND due_date > ? AND due_date < ? AND created_at > ?", WorkDate.get(2), WorkDate.get(6), Date.today - 6)
-        # remaining tasks sorted from oldest to newest
-        @prioritized[2] = @unfinished.where("created_at > ? AND (((due_date IS NULL OR due_date > ?) AND duration <> '8') OR (duration = '8' AND (due_date IS NULL OR due_date >= ?) ) )", Date.today - 6, WorkDate.get(2), WorkDate.get(6) )
-        @prioritized[3] = Task.where("completed_by IS NULL and iced = ?", true).order(created_at: :desc)
+        # low priority, remaining tasks sorted from oldest to newest
+        @prioritized[2] = @unfinished.where("created_at > ? AND (((due_date IS NULL OR due_date > ?) AND duration <> '8') OR (duration = '8' AND (due_date IS NULL OR due_date >= ?) ) )", Date.today - 6, WorkDate.get(2), WorkDate.get(6) ).
+           order(created_at: :asc)
+        # frozen priority
+        @prioritized[3] = Task.where("completed_by IS NULL and iced = ?", true).order(created_at: :asc)
   		  @priorities = [
   			'High',
   			'Medium',
