@@ -15,7 +15,6 @@
 					= link_to "History", {controller: 'tasks', action: 'history'}, class: 'btn'
 					= link_to "All Tasks", {controller: 'tasks', action: 'all'}, class: 'btn'
 					= link_to "News", {controller: 'comments', action: 'list'}, class: 'btn'
-					= link_to "Points", {controller: 'tasks', action: 'points'}, class: 'btn'
 					= link_to "FAQ", {controller: 'tasks', action: 'faq'}, class: 'btn'
 					
 				.btn-group
@@ -39,5 +38,5 @@
 								.banner_comment_body= n.body
 				= yield
 			
-			#footer= "neXt v5 - Last updated April 5, 2016 - Developed by Nick Pink using Ruby on Rails #{Rails::VERSION::STRING} and Ruby #{RUBY_VERSION}"
+			#footer= "neXt v5.1 - Last updated April 25, 2016 - Developed by Nick Pink using Ruby on Rails #{Rails::VERSION::STRING} and Ruby #{RUBY_VERSION}"
 		#task_form.modal.hide.fade
