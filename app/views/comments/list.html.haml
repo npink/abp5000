@@ -1,7 +1,7 @@
 %h2 News
 
 = form_for @comment, url: {controller: 'comments', action: 'create'} do |f|
-	= f.text_area :body, {id: 'comment_text_field', cols: 100, rows: 1, maxlength: 255}
+	= f.text_field :body, {id: 'comment_text_field', size: 90, maxlength: 255}
 	%input.btn.btn-primary{'type' => 'submit', 'value' => 'Announce!'}
 
 %table#comments.queue_table

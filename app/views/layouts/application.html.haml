@@ -31,7 +31,11 @@
 					.recent_news
 						- @latest_news.each do |n|
 							.comment
-								.comment_timestamp.banner_timestamp= n.created_at.strftime('%a, %l:%M %p')
+								.comment_timestamp.banner_timestamp
+									- if n.created_at.to_date == Date.today
+										= "Today, #{n.created_at.strftime('%l:%M %p')}"
+									- else
+										= n.created_at.strftime('%a, %l:%M %p')
 								.banner_comment_body= n.body
 				= yield
 			
