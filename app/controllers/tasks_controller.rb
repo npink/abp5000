@@ -105,7 +105,7 @@ class TasksController < ApplicationController
     
     def update_active
        task = Task.find(params[:task_id])
-       task.update( 'active' =>  params[:task_active] )
+       task.update( 'active' =>  (params[:task_active] == 'true' ? true : false)  )
        
        render :nothing => true
     end
