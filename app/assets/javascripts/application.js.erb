@@ -110,7 +110,6 @@ $(function() {
 	
 	$(".task_row").click(function(event) {
 		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('status_options') && !$(event.target).hasClass('gear') ) {
-			alert(event.target);
 			$.get(window.location.origin + '/tasks/' + $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#task_form').html(data);
