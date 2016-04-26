@@ -103,6 +103,13 @@ class TasksController < ApplicationController
        render js: "location.assign('#{request.referer}')"
     end
     
+    def update_active
+       task = Task.find(params[:task_id])
+       task.update( 'active' =>  params[:task_active] )
+       
+       render :nothing => true
+    end
+    
     def edit
       @task = Task.find( params[:id] )
       render :layout => false

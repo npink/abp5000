@@ -30,7 +30,6 @@ function load_url() {
 }
 
 $(function() {
-	/* test code here */
 	
 	$("#add_task_button").click( function() {
 		$.get('/tasks/new', function(data) {
@@ -47,11 +46,19 @@ $(function() {
 	});
 	
 	$(".task_row").hover(function() {
+		if ( $(this).find(".spinning_gear").hasClass('none') ) {
+			$(this).find(".static_gear").removeClass('hidden');
+		}
+		
 		$(this).find(".initials_updater").css({'visibility' : 'visible'});
 		$(this).find('.status_updater').find(".status_stamp").addClass('hidden');
 		$(this).find('.status_updater').find(".status_options").removeClass('hidden');
 	},
 	function() {
+		if ( $(this).find(".spinning_gear").hasClass('none') ) {
+			$(this).find(".static_gear").addClass('hidden');
+		}
+		
 		$(this).find(".initials_updater").css({'visibility' : 'hidden'});
 		$(this).find('.status_updater').find(".status_stamp").removeClass('hidden');
 		$(this).find('.status_updater').find(".status_options").addClass('hidden');
@@ -80,8 +87,30 @@ $(function() {
 		$.post(window.location.origin + "/tasks/update_status", task_object );
 	});
 	
+	$(".spinning_gear").click(function() {
+		$(this).addClass('none');
+		$(this).siblings().removeClass('none');
+	});
+	
+	$(".static_gear").click(function() {
+		$(this).addClass('none');
+		$(this).siblings().removeClass('none');
+	});
+	
+	$(".gear").click( function() {
+		
+		var task_object = {
+			task_id: $(this).data('task-id'),
+			task_active: $(this).data('task-active')
+		};
+		
+		$.post(window.location.origin + "/tasks/update_active", task_object );
+		
+	});
+	
 	$(".task_row").click(function(event) {
-		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('status_options') ) {
+		if ( !$(event.target).hasClass('initials_field') && !$(event.target).hasClass('status_options') && !$(event.target).hasClass('gear') ) {
+			alert(event.target);
 			$.get(window.location.origin + '/tasks/' + $(this).data("task-id") + "/edit", function(data) {
 			
 				$('#task_form').html(data);
@@ -100,7 +129,6 @@ $(function() {
 				});
 				
 				$('#task_form').on('shown', function () {
-					//alert('foo');
 					$("#task_client_name").focus();
 				 });
 			
@@ -112,17 +140,6 @@ $(function() {
 		// TODO: This erb prevents file from being cached
 		var url = '<%= url_for controller: :tasks, action: :queue, only_path: :true %>' + "?for=" + $(this).attr("alt");
 		location.assign(url);
-	});
-	
-	$(".task_suggestion").click(function(e) {
-		var task_object = { 
-			task_id: $(this).data("task-id"),
-			attribute: 'delegated_to',
-			value: $(this).data('delegated-to')
-	   };
-
-		$.post(window.location.origin + "/tasks/initial", task_object);
-		e.preventDefault();
 	});
 	
 });

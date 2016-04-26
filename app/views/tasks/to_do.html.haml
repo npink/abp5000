@@ -30,6 +30,8 @@
 				Notes
 			%th.cell_small
 				Respon.
+			%th.is_active_column
+				Active
 			%th.cell_small
 				= image_tag('neXt_X.png', width: '25')
 			%th.cell_medium
@@ -52,6 +54,7 @@
 						= render_status_updater(t)
 						= render_summary(t.summary)
 					%td.cell_small= render_task_initials_field(t, 'delegated_to')
+					%td.is_active_column= render_gears(t)
 					%td.cell_small= render_task_initials_field(t, 'completed_by')
 					%td.cell_medium= render_due_date(t.due_date)
 					%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"

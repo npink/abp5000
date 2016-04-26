@@ -88,5 +88,11 @@ module ApplicationHelper
          duration
       end
    end
+   
+   def render_gears(t)
+		html = image_tag("spinning_gear.gif", :class => "spinning_gear gear #{'none' unless t.active}", 'data-task-id' => t.id, 'data-task-active' => false)
+		html += image_tag("static_gear.gif", :class => "static_gear gear #{t.active ? 'none' : 'hidden'}", 'data-task-id' => t.id, 'data-task-active' => true)
+      raw html
+   end
    						
 end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'tasks/history' => 'tasks#history'
     get 'tasks/all' => 'tasks#all'
     post 'tasks/update_status' => 'tasks#update_status'
+    post 'tasks/update_active' => 'tasks#update_active'
     
     get 'comments' => 'comments#list'
     post 'comments' => 'comments#create'

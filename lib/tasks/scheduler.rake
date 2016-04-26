@@ -10,6 +10,9 @@ namespace :scheduler do
         t.iced = false
         t.save
      end
+     
+     # Deactivate all tasks
+     Task.update_all('active' => false)
    end
    
 end
