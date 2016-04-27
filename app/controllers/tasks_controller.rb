@@ -9,11 +9,12 @@ class TasksController < ApplicationController
         @prioritized[0] = @unfinished.where('due_date <= ?', Date.today).order(created_at: :asc)
         # medium priority
         # due tomorrow
-        @prioritized[1] = @unfinished.where('due_date = ? AND created_at > ?', WorkDate.get(1), Date.today - 6 ).
+        @prioritized[1] = @unfinished.where('due_date = ?', WorkDate.get(1) ).
            order(created_at: :asc)
         # one week or more older
-        @prioritized[1] += @unfinished.where('created_at <= ? AND (due_date > ? OR due_date IS NULL)', Date.today - 6, Date.today).order(created_at: :asc)
-        # due the day after tomorrow
+        @prioritized[1] += @unfinished.where('created_at <= ? AND (due_date > ? OR due_date IS NULL)', Date.today - 6, WorkDate.get(1) ).
+           order(created_at: :asc)
+        # due the day after tomorrow, but not more than one week old
         @prioritized[1] += @unfinished.where('due_date = ? AND created_at > ?', WorkDate.get(2), Date.today - 6 ).
            order(created_at: :asc)
         # monster tasks due within the next week
