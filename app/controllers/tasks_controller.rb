@@ -5,53 +5,35 @@ class TasksController < ApplicationController
      def to_do   
         @unfinished = Task.where("completed_by IS NULL AND iced = ?", false)
         @prioritized = []
-        # high priority, due today and past due
+        # do very soon, due today, tomorrow or past due
         @prioritized[0] = @unfinished.where('due_date <= ?', Date.today).order(created_at: :asc)
-        # medium priority
-        # due tomorrow
-        @prioritized[1] = @unfinished.where('due_date = ?', WorkDate.get(1) ).
+        @prioritized[0] += @unfinished.where('due_date = ?', WorkDate.get(1) ).
            order(created_at: :asc)
-        # one week or more older
-        @prioritized[1] += @unfinished.where('created_at <= ? AND (due_date > ? OR due_date IS NULL)', Date.today - 6, WorkDate.get(1) ).
+        # do soon
+        due_in_next_few_days = @unfinished.where('due_date = ? OR due_date = ?', WorkDate.get(2), WorkDate.get(3) ).
            order(created_at: :asc)
-        # due the day after tomorrow, but not more than one week old
-        @prioritized[1] += @unfinished.where('due_date = ? AND created_at > ?', WorkDate.get(2), Date.today - 6 ).
+        
+        older_than_a_week_no_due_date = @unfinished.where('created_at <= ? AND due_date IS NULL', Date.today - 6 ).
            order(created_at: :asc)
-        # monster tasks due within the next week
-        @prioritized[1] += @unfinished.where("duration = '8' AND due_date > ? AND due_date < ? AND created_at > ?", WorkDate.get(2), WorkDate.get(6), Date.today - 6)
+           
+        @prioritized[1] = interleave(due_in_next_few_days, older_than_a_week_no_due_date) 
+        
         # low priority, remaining tasks sorted from oldest to newest
-        @prioritized[2] = @unfinished.where("created_at > ? AND (((due_date IS NULL OR due_date > ?) AND duration <> '8') OR (duration = '8' AND (due_date IS NULL OR due_date >= ?) ) )", Date.today - 6, WorkDate.get(2), WorkDate.get(6) ).
+        @prioritized[2] = @unfinished.where("(created_at > ? AND due_date IS NULL) OR (created_at < ? AND due_date > ?)", Date.today - 6, Date.today - 6, WorkDate.get(3) ).
            order(created_at: :asc)
         # frozen priority
         @prioritized[3] = Task.where("completed_by IS NULL and iced = ?", true).order(created_at: :asc)
   		  @priorities = [
-  			'High',
-  			'Medium',
-         'Low',
-         'Frozen'
+  			['high', 'Do First'],
+  			['medium', 'Do Second'],
+         ['low', 'Do Third'],
+         ['frozen', 'Frozen']
   		]
          
       @high_hours = Task.count_hours(@prioritized[0])
       @medium_hours = Task.count_hours(@prioritized[1]) + @high_hours
       @low_hours = Task.count_hours(@prioritized[2]) + @medium_hours
       @frozen_hours = Task.count_hours(@prioritized[3])
-    end
-    
-    # Render all tasks for a certain person
-    def queue
-          @initials = params[:for].upcase
-          @user_name = User.get_full_name(@initials)
-          
-          @tasks = Task.where( "completed_by IS NULL AND delegated_to = ? AND ((due_date <= ? AND duration <> '8') OR (duration = '8' AND due_date < ?))", @initials, WorkDate.get(2), WorkDate.get(6) ).
-             order(:due_date)
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", @initials, false, WorkDate.get(2), WorkDate.get(6) ).
-             order(created_at: :asc)
-          @tasks += Task.where( "completed_by IS NULL AND delegated_to = ? AND iced = ? AND (due_date IS NULL OR (due_date > ? AND duration <> '8') OR (due_date >= ? AND duration = '8'))", @initials, true, WorkDate.get(2), WorkDate.get(6) ).
-             order(created_at: :desc)
-          
-          @tasks_done_today = Task.where( "completed_by IS NOT NULL AND (delegated_to = ? OR completed_by = ?) AND completed_on = ?", 
-             @initials, @initials, Date.today ).order(:client_name)
-       
     end
     
     def history
@@ -86,6 +68,7 @@ class TasksController < ApplicationController
           flash[:notice] = "Task '#{task.client_name}' completed"
           task.update( completed_on: (params[:value].blank? ? nil : Date.today) )
        else
+          task.update( 'active' =>  true )
           flash[:notice] = "Task '#{task.client_name}' delegated to #{User.get_full_name(task.delegated_to)}"
        end
        
@@ -143,8 +126,20 @@ class TasksController < ApplicationController
     
     private
     
+    def interleave(*args)
+      raise 'No arrays to interleave' if args.empty?
+      max_length = args.map(&:size).max
+      output = []
+      max_length.times do |i|
+        args.each do |elem|
+          output << elem[i] if i < elem.length
+        end
+      end
+      output
+    end
+    
     def get_latest_news
-       @latest_news = Comment.where('created_at > ?', Time.now - 48.hours).order(created_at: :desc)
+       @latest_news = Comment.where('created_at > ?', Time.now - 24.hours).order(created_at: :desc)
     
     end
     

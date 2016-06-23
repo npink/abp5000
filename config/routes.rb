@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     get 'tasks/new' => 'tasks#new'
     post 'tasks' => 'tasks#create'
     get 'tasks/to-do' => 'tasks#to_do'
-    get 'tasks/queue' => 'tasks#queue'
     get 'tasks/faq' => 'tasks#faq'
     post 'tasks/initial' => 'tasks#initial'
     get 'tasks/:id/edit' => 'tasks#edit'

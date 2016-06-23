@@ -75,8 +75,8 @@ class Task < ActiveRecord::Base
       
       def status_options
          {
-            'N/A' => nil,
-            'Pending' => 'P',
+            'Not Sent' => nil,
+            'Submitted' => 'P',
             'Approved' => 'A'
          }
       end

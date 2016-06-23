@@ -19,9 +19,6 @@
 					
 				.btn-group
 					%button#add_task_button.btn	Create Task
-				#headshot_filters.btn-group
-					- Task.active_staff.each do |initials|
-						= image_tag("avatars/#{initials.downcase}.jpeg", class: 'headshot_filter img-circle enlargeable')
 
 			#content
 				- if flash[:notice]
@@ -30,13 +27,13 @@
 					.recent_news
 						- @latest_news.each do |n|
 							.comment
-								.comment_timestamp.banner_timestamp
-									- if n.created_at.to_date == Date.today
-										= "Today, #{n.created_at.strftime('%l:%M %p')}"
-									- else
-										= n.created_at.strftime('%a, %l:%M %p')
-								.banner_comment_body= n.body
+								- if n.created_at.to_date == Date.today
+									.comment_timestamp.banner_timestamp= "Today, #{n.created_at.strftime('%l:%M %p')}"
+									.banner_comment_body_today= n.body
+								- else
+									.comment_timestamp.banner_timestamp= n.created_at.strftime('%a, %l:%M %p')
+									.banner_comment_body= n.body
 				= yield
 			
-			#footer= "neXt v5.1 - Last updated April 27, 2016 - Developed by Nick Pink using Ruby on Rails #{Rails::VERSION::STRING} and Ruby #{RUBY_VERSION}"
+			#footer= "neXt v5.2 - Last updated June 23, 2016 - Developed by Nick Pink using Ruby on Rails #{Rails::VERSION::STRING} and Ruby #{RUBY_VERSION}"
 		#task_form.modal.hide.fade

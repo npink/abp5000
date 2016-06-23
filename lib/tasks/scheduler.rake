@@ -5,8 +5,8 @@ namespace :scheduler do
      Task.where('completed_on < ?', Date.today - 30.days).destroy_all
      Comment.where('created_at < ?', Time.now - 30.days).destroy_all
      
-     # Unfreeze any incomplete tasks that are due within 2 days
-     Task.where("completed_by IS NULL AND iced = ? AND due_date <= ?", true, WorkDate.get(2) ).each do |t|
+     # Unfreeze any incomplete tasks that are due within 3 days
+     Task.where("completed_by IS NULL AND iced = ? AND due_date <= ?", true, WorkDate.get(3) ).each do |t|
         t.iced = false
         t.save
      end

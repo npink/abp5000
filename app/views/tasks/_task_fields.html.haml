@@ -13,7 +13,7 @@
 		= @f.select :duration, options_for_select(Task.minutes_to_complete_options, @task.duration)
 	.form-group
 		= @f.label :estimate_number, "Estimate Number", class: 'field_header'
-		= @f.text_field :estimate_number, {size: 8, maxlength: 12}
+		= @f.text_field :estimate_number, {maxlength: 20}
 		
 .task_form_right_panel
 	.form_group
@@ -23,7 +23,7 @@
 		= @f.label :completed_by, "Completed By", class: 'field_header'
 		= @f.text_field :completed_by, {class: 'initials_field', size: 2, maxlength: 2}
 	.form_group
-		= @f.label :status, "Status"
+		= @f.label :status, "Design"
 		= @f.select :status, options_for_select(Task.status_options, @task.status)
 	- if @task.created_at
 		.form-group

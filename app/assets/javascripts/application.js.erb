@@ -45,23 +45,27 @@ $(function() {
 		
 	});
 	
-	$(".task_row").hover(function() {
+	$(".to_do_task_row").hover(function() {
 		if ( $(this).find(".spinning_gear").hasClass('none') ) {
 			$(this).find(".static_gear").removeClass('hidden');
 		}
 		
-		$(this).find(".initials_updater").css({'visibility' : 'visible'});
-		$(this).find('.status_updater').find(".status_stamp").addClass('hidden');
-		$(this).find('.status_updater').find(".status_options").removeClass('hidden');
+		$(this).find(".delegated_to").removeClass('none');
+		$(this).find('.img-circle').addClass('none');
+		$(this).find('.completed_by').removeClass('hidden');
+		$(this).find('.status_updater').find(".status_stamp").addClass('none');
+		$(this).find('.status_updater').find(".status_options").removeClass('none');
 	},
 	function() {
 		if ( $(this).find(".spinning_gear").hasClass('none') ) {
 			$(this).find(".static_gear").addClass('hidden');
 		}
 		
-		$(this).find(".initials_updater").css({'visibility' : 'hidden'});
-		$(this).find('.status_updater').find(".status_stamp").removeClass('hidden');
-		$(this).find('.status_updater').find(".status_options").addClass('hidden');
+		$(this).find(".delegated_to").addClass('none');
+		$(this).find('.img-circle').removeClass('none');
+		$(this).find('.completed_by').addClass('hidden');
+		$(this).find('.status_updater').find(".status_stamp").removeClass('none');
+		$(this).find('.status_updater').find(".status_options").addClass('none');
 	});
 	
 	// Update task when 'enter' key is pressed
@@ -133,12 +137,6 @@ $(function() {
 			
 			});
 		}
-	});
-	
-	$(".headshot_filter").click(function() {
-		// TODO: This erb prevents file from being cached
-		var url = '<%= url_for controller: :tasks, action: :queue, only_path: :true %>' + "?for=" + $(this).attr("alt");
-		location.assign(url);
 	});
 	
 });

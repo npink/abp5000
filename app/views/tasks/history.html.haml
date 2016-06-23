@@ -8,33 +8,32 @@
 			%th
 				Est. #
 			%th
-				Summary
-			%th.cell_small
-				Resp.
-			%th.cell_small
-				= image_tag('neXt_X.png', width: '25')
-			%th
 				Size
 			%th
-				Created
+				Notes
+			%th
+				Design
+			%th.cell_small
+				= image_tag('neXt_X.png', width: '25')
 	%tbody
 		- unless @task_history.size == 0
 			- completed_on = Date.today
 			%tr.date_row
 				- unless @task_history.first.completed_on != completed_on
-					%th{'colspan' => '7'} Today
+					%th{'colspan' => '6'} Today
 			- @task_history.each do |t|
 				- if completed_on != t.completed_on.to_date
 					- completed_on = t.completed_on.to_date
 					%tr.date_row
-						%th{'colspan' => '7'}= completed_on.strftime("%a, %m-%d")
+						%th{'colspan' => '6'}= completed_on.strftime("%a, %m-%d")
 				%tr.task_row{'data-task-id' => t.id}
 					%td= t.client_name
 					%td= t.estimate_number
-					%td
-						= render_status_stamp(t)
-						= render_summary(t.summary)
-					%td.cell_small= render_task_initials_field(t, 'delegated_to') 
-					%td.cell_small= render_task_initials_field(t, 'completed_by')
 					%td= render_duration(t.duration)
-					%td= t.created_at.strftime("%a, %m-%d")
+					%td= render_summary(t.summary)
+					%td
+						- if t.status == 'P'
+							= image_tag('submitted_for_review.png', :class => 'status_stamp')
+						- elsif t.status == 'A'
+							= image_tag('approved_stamp.png', :class => 'status_stamp')
+					%td.cell_small= image_tag("avatars/#{t.completed_by.downcase}.jpeg", class: 'img-circle')

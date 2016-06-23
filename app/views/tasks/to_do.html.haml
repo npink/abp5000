@@ -17,7 +17,7 @@
 	.work_hours_indicator
 		%span= @frozen_hours.ceil
 		= image_tag("priorities/frozen.png", height: '20', width: '20')
-%table.queue_table.table.table-hover.task_table
+%table.table.table-hover.task_table
 	%thead
 		%tr
 			%th.cell_large
@@ -30,8 +30,10 @@
 				Notes
 			%th.cell_small
 				Respon.
+			%th.cell_status
+				Design
 			%th.is_active_column
-				Active
+				Active?
 			%th.cell_small
 				= image_tag('neXt_X.png', width: '25')
 			%th.cell_medium
@@ -41,20 +43,19 @@
 	%tbody
 		- @prioritized.each_with_index do |p, i|
 			%tr
-				%th.priority_header{'colspan' => '8'}
-					= image_tag("priorities/#{@priorities[i].downcase}.png", height: '20', width: '20') 
-					= @priorities[i]
+				%th.priority_header{'colspan' => '10'}
+					= image_tag("priorities/#{@priorities[i][0]}.png", height: '20', width: '20') 
+					= @priorities[i][1]
 
 			- p.each do |t|
-				%tr.task_row{'data-task-id' => t.id}
+				%tr.task_row.to_do_task_row{'data-task-id' => t.id}
 					%td.cell_large= t.client_name
 					%td.cell_small= t.estimate_number
 					%td.cell_small= render_duration(t.duration)
-					%td.cell_large
-						= render_status_updater(t)
-						= render_summary(t.summary)
-					%td.cell_small= render_task_initials_field(t, 'delegated_to')
+					%td.cell_large= render_summary(t.summary)
+					%td.cell_small= render_task_responsible(t)
+					%td.cell_status= render_status_updater(t)
 					%td.is_active_column= render_gears(t)
-					%td.cell_small= render_task_initials_field(t, 'completed_by')
+					%td.cell_small= render_task_completed_by(t)
 					%td.cell_medium= render_due_date(t.due_date)
 					%td.cell_medium= "#{distance_of_time_in_words_to_now(t.created_at)} ago"
