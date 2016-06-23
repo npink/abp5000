@@ -11,7 +11,7 @@ class TasksController < ApplicationController
            order(created_at: :asc)
         # do soon
         due_in_next_few_days = @unfinished.where('due_date = ? OR due_date = ?', WorkDate.get(2), WorkDate.get(3) ).
-           order(created_at: :asc)
+           order(due_date: :asc)
         
         older_than_a_week_no_due_date = @unfinished.where('created_at <= ? AND due_date IS NULL', Date.today - 6 ).
            order(created_at: :asc)
