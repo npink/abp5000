@@ -19,10 +19,16 @@ class TasksController < ApplicationController
         @prioritized[1] = interleave(due_in_next_few_days, older_than_a_week_no_due_date) 
         
         # low priority, remaining tasks sorted from oldest to newest
-        @prioritized[2] = @unfinished.where("(created_at > ? AND due_date IS NULL) OR (created_at < ? AND due_date > ?)", Date.today - 6, Date.today - 6, WorkDate.get(3) ).
+        @prioritized[2] = @unfinished.where("(created_at > ? AND due_date IS NULL) OR due_date > ?", Date.today - 6, WorkDate.get(3) ).
            order(created_at: :asc)
         # frozen priority
         @prioritized[3] = Task.where("completed_by IS NULL and iced = ?", true).order(created_at: :asc)
+        @tasks_to_do = 0
+        
+        @prioritized.each do |p|
+           @tasks_to_do += p.size
+        end
+        
   		  @priorities = [
   			['high', 'Do First'],
   			['medium', 'Do Second'],
