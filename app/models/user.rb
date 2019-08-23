@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
          'PP' => 'Paul',
          'GP' => 'Gail',
          'SP' => 'Steve',
-         'JT' => 'Jane'
+         'JT' => 'Jane',
+         'AK' => 'Allison'
          
       }
       
